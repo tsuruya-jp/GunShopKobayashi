@@ -1,0 +1,14 @@
+version: '3.8' 
+services:                      
+  node:
+    image: node:latest
+    working_dir: /src
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 3000:3000
+      - 6006:6006
+    volumes:
+      - ./src:/src
+    command: sh -c 'npm run dev'
+    tty: true
