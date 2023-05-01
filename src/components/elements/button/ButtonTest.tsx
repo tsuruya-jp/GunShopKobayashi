@@ -1,4 +1,3 @@
-import { AiOutlineRight } from "react-icons/ai";
 import styles from './ButtonTest.module.scss'
 
 type ButtonTestProps = {
@@ -15,7 +14,6 @@ export const ButtonTest = ({
       <div className="flex justify-center">
         <a className={`${styles.a} flex justify-center items-center w-24 p-1`}>
           {label}
-          <AiOutlineRight />
         </a>
       </div>
     </>

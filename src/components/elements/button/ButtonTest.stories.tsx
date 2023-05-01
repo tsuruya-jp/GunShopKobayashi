@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {ButtonTest} from "./ButtonTest";
-import { useState } from 'react';
 
 const meta: Meta<typeof ButtonTest> = {
   title: 'ButtonTest',
