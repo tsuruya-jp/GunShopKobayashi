@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 export default function Index() {
   const router = useRouter();
   const { data: session } = useSession();
-  if (session) {
+  if (session && session.user) {
     return (
       <>
         {JSON.stringify(session)}

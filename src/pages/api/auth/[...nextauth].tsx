@@ -43,21 +43,23 @@ export const options: AuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      session.user.username = token.username;
-      session.user.password = token.password;
-      session.user.accessToken = token.accessToken;
-      return session;
+      if(token) {
+        session.user.username = token.username;
+        session.user.password = token.password;
+        session.user.accessToken = token.accessToken;
+      }
+      console.log(token)
+      return Promise.resolve(session);
     },
     async jwt({ token, user }) {
-      if(user) {
+      const isSignIn = user ? true : false;
+      if(isSignIn) {
         token.username = user.username;
         token.password = user.password;
         token.accessToken = user.accessToken;
       }
-      return token;
-    },
-    async signIn({ user, account, profile, email, credentials }) {
-      return true
+      // console.log(user)
+      return Promise.resolve(token);
     },
   },
   session: {
