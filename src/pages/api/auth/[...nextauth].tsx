@@ -48,7 +48,6 @@ export const options: AuthOptions = {
         session.user.password = token.password;
         session.user.accessToken = token.accessToken;
       }
-      console.log(token)
       return Promise.resolve(session);
     },
     async jwt({ token, user }) {
@@ -58,7 +57,6 @@ export const options: AuthOptions = {
         token.password = user.password;
         token.accessToken = user.accessToken;
       }
-      // console.log(user)
       return Promise.resolve(token);
     },
   },

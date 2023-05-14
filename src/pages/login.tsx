@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { signIn, getCsrfToken, getSession } from "next-auth/react"
 import { useRef } from "react";
 
@@ -41,12 +41,17 @@ const Login = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSidePr
 
 export default Login;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession();
+export const getServerSideProps:GetServerSideProps = async(context: GetServerSidePropsContext) => {
+  const session = await getSession(context);
+  console.log(session)
   if(session){
     return {
       props: {
         csrfToken: await getCsrfToken(context),
+      },
+      redirect: {
+        destination: '/admin',
+        permanent: false,
       },
     }
   }

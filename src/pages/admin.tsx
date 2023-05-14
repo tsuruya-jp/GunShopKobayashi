@@ -1,21 +1,10 @@
 import ButtonTest from "@/components/elements/button/ButtonTest";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth/next";
 import { signOut } from 'next-auth/react';
-import { getSession } from 'next-auth/react';
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { options } from "./api/auth/[...nextauth]";
 
 const Admin = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    (async () => {
-      const session = await getSession()        
-      if (!session) {
-        router.push('/login')
-      }
-    })()     
-  }, [])
-
   return(
     <>
       wellcome
@@ -25,3 +14,18 @@ const Admin = () => {
 }
 
 export default Admin;
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const session = await getServerSession(context.req, context.res, options);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {},
+  }
+}
