@@ -12,3 +12,15 @@ services:
       - ./src:/src
     command: sh -c 'npm run dev'
     tty: true
+  db:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db-store:/var/lib/postgresql/data
+    env_file:
+      - src/.env.local
+
+volumes:
+  db-store:
