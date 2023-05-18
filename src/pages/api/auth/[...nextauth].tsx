@@ -1,6 +1,7 @@
 import NextAuth ,{ AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
+import getUser from "@/features/user/api/get";
 
 export const options: AuthOptions = {
   providers: [
@@ -13,26 +14,10 @@ export const options: AuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials: any, req) {
-        const credentialDetails = {
-          name: credentials.username,
-          pass: credentials.password,
-        };
-        const resp = await fetch("http://localhost:3000/api/userData", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentialDetails),
-        });
+        const name = credentials.username;
+        const pass = credentials.password;
 
-        const user = await resp.json();
-        const valid = user.password == credentials.password
-
-        if (!valid) {
-          console.log(`Credentials not valid`);
-          return null;
-        }
+        const user = await getUser()
 
         if (user) {
           return { ...user, username: user.username };
@@ -64,7 +49,6 @@ export const options: AuthOptions = {
     strategy: "jwt",
     maxAge: 24 * 60 * 60,
   },
-  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/login",
   }
