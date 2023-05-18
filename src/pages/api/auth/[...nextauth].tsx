@@ -1,6 +1,5 @@
 import NextAuth ,{ AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from 'bcryptjs';
 import getUser from "@/features/user/api/get";
 
 export const options: AuthOptions = {
@@ -14,13 +13,18 @@ export const options: AuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials: any, req) {
-        const name = credentials.username;
-        const pass = credentials.password;
+        const name:string = credentials.username;
+        const pass:string = credentials.password;
 
-        const user = await getUser()
+        const message = {
+          name: name,
+          pass: pass
+        }
+
+        const user = await getUser(message)
 
         if (user) {
-          return { ...user, username: user.username };
+          return  user;
         }
         return null;
       }
