@@ -15,8 +15,7 @@ const execute = async(
       email: req.body.email,
       password: hashPass
     }
-    const result = createUser(data);
-    console.log(result);
+    const result = await createUser(data);
     res.status(200).json({result})
   } catch(err) {
     res.status(500).json({err: 'failed to fetch data'})
