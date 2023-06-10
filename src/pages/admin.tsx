@@ -1,15 +1,21 @@
-import ButtonTest from "@/components/elements/button/ButtonTest";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
-import { signOut } from 'next-auth/react';
 import { options } from "./api/auth/[...nextauth]";
+import Sidebar from "@/components/layouts/admin/sidebar/Sidebar";
+import Content from "@/components/layouts/admin/content/Content";
+import { useState } from "react";
 
 const Admin = () => {
+  const [isSidebar, setBoolean] = useState(true);
+  const changeSidebar = () => {
+    setBoolean(!isSidebar);
+  }
+
   return(
-    <>
-      wellcome
-      <ButtonTest label="Logout" onClick={() => signOut()}/>
-    </>
+    <div className={`h-screen flex duration-300 ${isSidebar ? "pl-[250px]" : ""}`}>
+      <Sidebar disabled={isSidebar} />
+      <Content changeSidebar={changeSidebar}/>
+    </div>
   )
 }
 
