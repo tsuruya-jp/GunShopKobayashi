@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
-import { options } from "./api/auth/[...nextauth]";
+import { options } from "../api/auth/[...nextauth]";
 import Sidebar from "@/components/layouts/admin/sidebar/Sidebar";
 import Content from "@/components/layouts/admin/content/Content";
 import { useState } from "react";
