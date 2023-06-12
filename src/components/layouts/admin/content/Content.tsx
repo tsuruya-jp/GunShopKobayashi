@@ -1,6 +1,7 @@
 import Icon from '@mdi/react';
 import { mdiMenu } from '@mdi/js';
 import { useSession } from 'next-auth/react';
+import TextEditor from '@/features/editor/TextEditor';
 
 const Content = (props: any) => {
   const { data: session } = useSession();
@@ -15,7 +16,7 @@ const Content = (props: any) => {
         <div className="ml-auto my-auto">{session ? session.user.username : ""}</div>
       </header>
       <main className="h-full p-6">
-        MainSection
+        <TextEditor />
       </main>
     </div>
   )
