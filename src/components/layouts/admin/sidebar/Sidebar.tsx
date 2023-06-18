@@ -1,5 +1,3 @@
-import ButtonTest from "@/components/elements/button/ButtonTest";
-import { signOut } from "next-auth/react";
 import Icon from '@mdi/react';
 import { mdiAccount, mdiFileDocumentEdit, mdiFolderMultipleImage, mdiPistol } from '@mdi/js';
 import styles from "./Sidebar.module.scss";
@@ -17,7 +15,6 @@ const Sidebar = ({
       <div className="flex"><Icon path={mdiPistol} size={1} />商品</div>
       <div className="flex"><Icon path={mdiFolderMultipleImage} size={1} />メディア</div>
       <div className="flex"><Icon path={mdiAccount} size={1} />ユーザー</div>
-      <ButtonTest label="Logout" onClick={() => signOut()}/>
     </aside>
   )
 }

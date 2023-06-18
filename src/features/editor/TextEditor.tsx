@@ -19,7 +19,7 @@ import '@draft-js-plugins/image/lib/plugin.css';
 
 const TextEditor = () => {
   const [plugins, InlineToolbar, LinkButton] = useMemo(() => {
-    const linkPlugin = createLinkPlugin({ placeholder: "http://..." });
+    const linkPlugin = createLinkPlugin({ placeholder: 'http://...' });
     const imagePlugin = createImagePlugin();
     const inlineToolbarPlugin = createInlineToolbarPlugin();
     return [
@@ -114,7 +114,7 @@ const TextEditor = () => {
 
   return(
      <>
-      <div className={`prose prose-stone m-auto h-[500px] w-[500px] overflow-scroll rounded-md border border-gray-300 p-3 shadow-sm sm:text-sm`}>
+      <div className='prose max-w-none m-auto bg-white h-[calc(100vh-144px)] w-full overflow-scroll rounded-md border border-gray-300 p-3 shadow-sm sm:text-sm'>
         <Editor
           placeholder="入力してください"
           editorState={editorState}
@@ -138,13 +138,12 @@ const TextEditor = () => {
                 {...externalProps}
                 onOverrideContent={
                 externalProps.onOverrideContent as OverrideOnOverrideContent
-                }
-              />
+              } />
             </>
           )}
-        </InlineToolbar> 
+        </InlineToolbar>
       </div>
-      <div className='prose prose-stone m-auto w-[500px]'>
+      <div className='prose max-w-none m-auto'>
         {!readonly && <button className="rounded-md border border-gray-300 px-2" onClick={saveContent}>保存</button>}
         {readonly ? (
           <button className="rounded-md border border-gray-300 px-2" onClick={() => setReadOnly(false)}>Edit</button>
