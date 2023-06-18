@@ -1,25 +1,20 @@
 import styles from "./Header.module.scss"
-
-type HeaderProps = {
-  bgColor: string
-}
-
-const Header = ({
-  bgColor
-}: HeaderProps) => {
+import { useTranslation } from 'next-i18next';
+const Header = () => {
+  const { t } = useTranslation('common');
   return(
     <>
-      <header className="h-[80px] flex justify-between" style={{backgroundColor: bgColor}}>
-        <div className="my-auto">logo</div>
+      <header className="h-[80px] flex justify-between bg-gray-100">
+        <div className="my-auto ml-7">logo</div>
         <div className={`my-auto flex ${styles.h_div}`}>
           <div>
-            <a href="">商品一覧</a>
+            <a href="">{t('Header.ProductList')}</a>
           </div>
           <div>
-            <a href="">店舗案内</a>
+            <a href="">{t('Header.ShopInfomation')}</a>
           </div>
           <div>
-            <a href="">お問い合わせ</a>
+            <a href="">{t('Header.test')}</a>
           </div>
         </div>
       </header>

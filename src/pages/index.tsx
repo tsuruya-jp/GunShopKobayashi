@@ -1,13 +1,12 @@
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
+import Header from "@/components/layouts/header/Header";
 
 const Index = () => {
-  const { t } = useTranslation('common');
   return (
-    <h1>
-      {t('Common.title')}
-    </h1>
+    <>
+      <Header />
+    </>
   );
 }
 

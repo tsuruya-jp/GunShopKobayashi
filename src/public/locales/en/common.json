@@ -1,5 +1,10 @@
 {
   "Common": {
     "title": "title"
+  },
+  "Header": {
+    "ProductList": "Product List",
+    "ShopInfomation": "店舗案内",
+    "Contact": "お問い合わせ"
   }
 }
