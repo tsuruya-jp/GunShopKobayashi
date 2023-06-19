@@ -50,7 +50,7 @@ export const options: AuthOptions = {
     maxAge: 24 * 60 * 60,
   },
   pages: {
-    signIn: "/login",
+    signIn: "/admin/login",
   }
 }
  
