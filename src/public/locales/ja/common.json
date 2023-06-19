@@ -24,5 +24,9 @@
     "Contact": "お問い合わせ",
     "PrivacyPolicy": "プライバシーポリシー",
     "CopyRight": "© 2023 小林銃砲火薬店 All Rights Reserved."
+  },
+  "Top": {
+    "ProductList": "商品一覧",
+    "ViewAllGuns": "すべての銃を見る"
   }
 }

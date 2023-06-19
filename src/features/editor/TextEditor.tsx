@@ -1,9 +1,17 @@
-import { AtomicBlockUtils, DraftHandleValue, EditorState, RichUtils, SelectionState, convertFromRaw, convertToRaw } from "draft-js";
+import {
+  AtomicBlockUtils,
+  DraftHandleValue,
+  EditorState,
+  RichUtils,
+  SelectionState,
+  convertFromRaw,
+  convertToRaw,
+} from 'draft-js';
 import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
 import createInlineToolbarPlugin, { Separator } from '@draft-js-plugins/inline-toolbar';
-import "draft-js/dist/Draft.css";
+import 'draft-js/dist/Draft.css';
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
-import { ComponentType, useEffect, useMemo, useState } from "react";
+import { ComponentType, useEffect, useMemo, useState } from 'react';
 import {
   ItalicButton,
   BoldButton,
@@ -22,19 +30,13 @@ const TextEditor = () => {
     const linkPlugin = createLinkPlugin({ placeholder: 'http://...' });
     const imagePlugin = createImagePlugin();
     const inlineToolbarPlugin = createInlineToolbarPlugin();
-    return [
-      [inlineToolbarPlugin, linkPlugin, imagePlugin],
-      inlineToolbarPlugin.InlineToolbar,
-      linkPlugin.LinkButton,
-    ];
+    return [[inlineToolbarPlugin, linkPlugin, imagePlugin], inlineToolbarPlugin.InlineToolbar, linkPlugin.LinkButton];
   }, []);
 
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   useEffect(() => {
-    setEditorState(createEditorStateWithText(""));
+    setEditorState(createEditorStateWithText(''));
   }, []);
 
   const [readonly, setReadOnly] = useState(false);
@@ -50,27 +52,16 @@ const TextEditor = () => {
 
   const insertImage = (url: any) => {
     const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      'image',
-      'IMMUTABLE',
-      { src: url } 
-    );
+    const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', { src: url });
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const nextEditorState = EditorState.set(editorState, {
       currentContent: contentStateWithEntity,
     });
-    const newEditorState = AtomicBlockUtils.insertAtomicBlock(
-      nextEditorState,
-      entityKey,
-      ' '
-    );
+    const newEditorState = AtomicBlockUtils.insertAtomicBlock(nextEditorState, entityKey, ' ');
     setEditorState(newEditorState);
   };
 
-  const handleDroppedFiles = (
-    selection: SelectionState,
-    files: Blob[]
-  ): DraftHandleValue => {
+  const handleDroppedFiles = (selection: SelectionState, files: Blob[]): DraftHandleValue => {
     insertImage(files[0].name);
     return 'handled';
   };
@@ -103,20 +94,18 @@ const TextEditor = () => {
   };
 
   interface OverrideContentProps {
-    getEditorState: () => EditorState
-    setEditorState: (editorState: EditorState) => void
-    onOverrideContent: (content: ComponentType<unknown> | undefined) => void
+    getEditorState: () => EditorState;
+    setEditorState: (editorState: EditorState) => void;
+    onOverrideContent: (content: ComponentType<unknown> | undefined) => void;
   }
 
-  type OverrideOnOverrideContent = (
-    content: ComponentType<OverrideContentProps> | undefined
-  ) => void
+  type OverrideOnOverrideContent = (content: ComponentType<OverrideContentProps> | undefined) => void;
 
-  return(
-     <>
+  return (
+    <>
       <div className='prose max-w-none m-auto bg-white h-[calc(100vh-144px)] w-full overflow-scroll rounded-md border border-gray-300 p-3 shadow-sm sm:text-sm'>
         <Editor
-          placeholder="入力してください"
+          placeholder='入力してください'
           editorState={editorState}
           onChange={setEditorState}
           plugins={plugins}
@@ -134,26 +123,37 @@ const TextEditor = () => {
               <HeadlineOneButton {...externalProps} />
               <HeadlineTwoButton {...externalProps} />
               <HeadlineThreeButton {...externalProps} />
-              <LinkButton  
+              <LinkButton
                 {...externalProps}
-                onOverrideContent={
-                externalProps.onOverrideContent as OverrideOnOverrideContent
-              } />
+                onOverrideContent={externalProps.onOverrideContent as OverrideOnOverrideContent}
+              />
             </>
           )}
         </InlineToolbar>
       </div>
       <div className='prose max-w-none m-auto'>
-        {!readonly && <button className="rounded-md border border-gray-300 px-2" onClick={saveContent}>保存</button>}
-        {readonly ? (
-          <button className="rounded-md border border-gray-300 px-2" onClick={() => setReadOnly(false)}>Edit</button>
-        ) : (
-          <button className="rounded-md border border-gray-300 px-2" onClick={() => setReadOnly(true)}>ReadOnly</button>
+        {!readonly && (
+          <button className='rounded-md border border-gray-300 px-2' onClick={saveContent}>
+            保存
+          </button>
         )}
-        <button className="rounded-md border border-gray-300 px-2" onClick={toggleBold}>太字</button>
-        <button className="rounded-md border border-gray-300 px-2" onClick={toggleHeaderOne}>h1</button>
+        {readonly ? (
+          <button className='rounded-md border border-gray-300 px-2' onClick={() => setReadOnly(false)}>
+            Edit
+          </button>
+        ) : (
+          <button className='rounded-md border border-gray-300 px-2' onClick={() => setReadOnly(true)}>
+            ReadOnly
+          </button>
+        )}
+        <button className='rounded-md border border-gray-300 px-2' onClick={toggleBold}>
+          太字
+        </button>
+        <button className='rounded-md border border-gray-300 px-2' onClick={toggleHeaderOne}>
+          h1
+        </button>
       </div>
-    </> 
+    </>
   );
 };
 
