@@ -14,7 +14,7 @@ const Header = () => {
             <a href="">{t('Header.ShopInfomation')}</a>
           </div>
           <div>
-            <a href="">{t('Header.test')}</a>
+            <a href="">{t('Header.Contact')}</a>
           </div>
         </div>
       </header>

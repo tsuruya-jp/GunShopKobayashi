@@ -6,5 +6,23 @@
     "ProductList": "商品一覧",
     "ShopInfomation": "店舗案内",
     "Contact": "お問い合わせ"
+  },
+  "Footer": {
+    "Tel": "TEL : 075-841-8866",
+    "EMail": "E-mail : xxxxx@xxxx.co.jp",
+    "Home": "ホーム",
+    "ProductList": "商品一覧",
+    "NewGuns": "新銃",
+    "OldGuns": "中古銃",
+    "OnlineStore": "オンラインストア",
+    "News": "お知らせ",
+    "AboutUs": "会社概要",
+    "CorporateInformation": "企業情報",
+    "History": "沿革",
+    "OurBusiness": "事業内容",
+    "Links": "リンク集",
+    "Contact": "お問い合わせ",
+    "PrivacyPolicy": "プライバシーポリシー",
+    "CopyRight": "© 2023 小林銃砲火薬店 All Rights Reserved."
   }
 }
