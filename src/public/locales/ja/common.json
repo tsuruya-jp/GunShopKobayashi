@@ -26,7 +26,20 @@
     "CopyRight": "© 2023 小林銃砲火薬店 All Rights Reserved."
   },
   "Top": {
-    "ProductList": "商品一覧",
-    "ViewAllGuns": "すべての銃を見る"
+    "Headline": {
+      "Product": "商品一覧",
+      "News": "お知らせ",
+      "CorporateName": "小林銃砲火薬店",
+      "StoreLocations": "店舗案内"
+    },
+    "Product": {
+      "ViewAllGuns": "すべての銃を見る",
+      "NewGuns": "新銃",
+      "OldGuns": "中古銃",
+      "OnlineStore": "オンラインストア",
+      "EnNewGuns": "New Gun",
+      "EnOldGuns": "Old Gun",
+      "EnOnlineStore": "Online Store"
+    }
   }
 }
