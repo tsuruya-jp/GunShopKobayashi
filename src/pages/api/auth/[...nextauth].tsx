@@ -1,45 +1,45 @@
-import NextAuth ,{ AuthOptions } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth, { AuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import getUser from "@/features/user/api/get";
 
 export const options: AuthOptions = {
   providers: [
     CredentialsProvider({
-      id: 'credentials',
-      name: 'credentials',
-      type: 'credentials',
+      id: "credentials",
+      name: "credentials",
+      type: "credentials",
       credentials: {
-        username: { label: 'Username', type: 'text' },
-        password: { label: 'Password', type: 'password' }
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any, req) {
-        const name:string = credentials.username;
-        const pass:string = credentials.password;
+        const name: string = credentials.username;
+        const pass: string = credentials.password;
 
         const message = {
           name: name,
-          pass: pass
-        }
+          pass: pass,
+        };
 
-        const user = await getUser(message)
+        const user = await getUser(message);
 
         if (user) {
-          return  user;
+          return user;
         }
         return null;
-      }
+      },
     }),
   ],
   callbacks: {
     async session({ session, token }) {
-      if(token) {
+      if (token) {
         session.user.username = token.username;
       }
       return Promise.resolve(session);
     },
     async jwt({ token, user }) {
       const isSignIn = user ? true : false;
-      if(isSignIn) {
+      if (isSignIn) {
         token.username = user.username;
       }
       return Promise.resolve(token);
@@ -51,7 +51,7 @@ export const options: AuthOptions = {
   },
   pages: {
     signIn: "/admin/login",
-  }
-}
- 
-export default NextAuth(options)
+  },
+};
+
+export default NextAuth(options);

@@ -27,10 +27,7 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
   );
 };
 
-export const NewsArticle = ({
-  date,
-  description
-}: NewsArticleProps) => {
+export const NewsArticle = ({ date, description }: NewsArticleProps) => {
   return (
     <div className={`mb-8 ${styles.parent} flex`}>
       <p className="mr-[60px]">{date}</p>
