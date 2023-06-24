@@ -6,14 +6,12 @@ import Footer from "@/components/layouts/footer/Footer";
 import MoreButton from "@/components/elements/morebutton/MoreButton";
 import Image from "@/components/elements/image/Image";
 import styles from "../styles/Top.module.scss";
+import listNews from "@/features/news/api/list";
+import { format } from "date-fns";
+import Link from "next/link";
 
 type ProductCardProps = {
   assortment: string;
-};
-
-type NewsArticleProps = {
-  date: string;
-  description: string;
 };
 
 export const ProductCard = ({ assortment }: ProductCardProps) => {
@@ -27,16 +25,24 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
   );
 };
 
-export const NewsArticle = ({ date, description }: NewsArticleProps) => {
+export const NewsArticle = ({news}: NewsArticleProps) => {
+  const data = news.map((v: NewsData) => {
+    const date = format(new Date(v.updatedAt), "yyyy-MM-dd");
+    return(
+      <div key={v.id} className={`mb-8 ${styles.parent} flex`}>
+        <p className="mr-[60px]">{date}</p>
+        <Link href={`/news/${v.id}`} passHref>
+          <p>{v.title}</p>
+        </Link>
+      </div>
+    )
+  })
   return (
-    <div className={`mb-8 ${styles.parent} flex`}>
-      <p className="mr-[60px]">{date}</p>
-      <p>{description}</p>
-    </div>
+    <>{data}</>
   );
 };
 
-const Index = () => {
+const Index = ({news}: NewsArticleProps) => {
   const { t } = useTranslation("common");
   return (
     <>
@@ -59,11 +65,7 @@ const Index = () => {
         <div className="mb-20">
           <p className="mb-20 text-[28px]">{t("Top.Headline.News")}</p>
           <div className="mx-[60px] mb-[60px]">
-            <NewsArticle date="2023-06-21" description="年末年始の営業について" />
-            <NewsArticle date="2023-06-21" description="年末年始の営業について" />
-            <NewsArticle date="2023-06-21" description="年末年始の営業について" />
-            <NewsArticle date="2023-06-21" description="年末年始の営業について" />
-            <NewsArticle date="2023-06-21" description="年末年始の営業について" />
+            <NewsArticle news={news} />
           </div>
           <MoreButton />
         </div>
@@ -80,7 +82,12 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
+  const data = await listNews(5);
+  const news = JSON.parse(JSON.stringify(data));
   return {
-    props: { ...translations },
+    props: {
+      news: news,
+      ...translations,
+    },
   };
 };

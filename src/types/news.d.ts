@@ -4,5 +4,9 @@ type NewsData = {
   content: JsonNullValueInput | InputJsonValue;
   public: boolean;
   createdAt?: Date;
-  updatedAt?: Date;
+  updatedAt: Date;
+};
+
+type NewsArticleProps = {
+  news: NewsData[];
 };
