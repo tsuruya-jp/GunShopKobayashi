@@ -1,4 +1,4 @@
-import createNews from "@/features/news/api/create"
+import create from "@/features/news/api/create"
 import { NextApiRequest, NextApiResponse } from "next"
 
 const execute = async(
@@ -14,12 +14,12 @@ const execute = async(
       content: req.body.content,
       public: req.body.public,
       createdAt: now,
-      updatedeAt: now
+      updatedAt: now
     }
-    const result = await createNews(data);
-    res.status(200).json({result})
+    await create(data);
+    res.status(200).end()
   } catch(err) {
-    res.status(500).json({err: 'failed to fetch data'})
+    res.status(500).end()
   }
 }
 

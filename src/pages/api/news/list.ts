@@ -3,10 +3,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const execute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const result = await listNews();
-    res.status(200).json({ result });
+    if (req.method!.toLocaleLowerCase() !== 'get') {
+      return res.status(405).end()
+    }
+    const data = await listNews();
+    res.status(200).json({ data });
   } catch (err) {
-    res.status(500).json({ err: "failed to fetch data" });
+    res.status(500).end();
   }
 };
 

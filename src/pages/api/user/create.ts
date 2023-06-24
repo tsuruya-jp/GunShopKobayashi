@@ -12,10 +12,10 @@ const execute = async (req: NextApiRequest, res: NextApiResponse) => {
       email: req.body.email,
       password: hashPass,
     };
-    const result = await createUser(data);
-    res.status(200).json({ result });
+    await createUser(data);
+    res.status(200).end();
   } catch (err) {
-    res.status(500).json({ err: "failed to fetch data" });
+    res.status(500).end();
   }
 };
 
