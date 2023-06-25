@@ -7,6 +7,6 @@ type NewsData = {
   updatedAt: Date;
 };
 
-type NewsArticleProps = {
-  news: NewsData[];
+type NewsArticle = {
+  data: NewsData[];
 };

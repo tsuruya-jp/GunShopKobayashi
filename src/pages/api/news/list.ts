@@ -6,7 +6,8 @@ const execute = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method!.toLocaleLowerCase() !== 'get') {
       return res.status(405).end()
     }
-    const data = await listNews();
+    const article = Number(req.query.article);
+    const data = await listNews(article);
     res.status(200).json({ data });
   } catch (err) {
     res.status(500).end();

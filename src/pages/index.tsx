@@ -14,6 +14,10 @@ type ProductCardProps = {
   assortment: string;
 };
 
+type NewsArticleProps = {
+  data: NewsArticle;
+}
+
 export const ProductCard = ({ assortment }: ProductCardProps) => {
   const { t } = useTranslation("common");
   return (
@@ -25,24 +29,22 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
   );
 };
 
-export const NewsArticle = ({news}: NewsArticleProps) => {
-  const data = news.map((v: NewsData) => {
+export const NewsArticle = ({ data }: NewsArticleProps) => {
+  const newsList = data.data.map((v: NewsData) => {
     const date = format(new Date(v.updatedAt), "yyyy-MM-dd");
-    return(
+    return (
       <div key={v.id} className={`mb-8 ${styles.parent} flex`}>
-        <p className="mr-[60px]">{date}</p>
+        <p className="w-[100px] mr-[60px]">{date}</p>
         <Link href={`/news/${v.id}`} passHref>
           <p>{v.title}</p>
         </Link>
       </div>
-    )
-  })
-  return (
-    <>{data}</>
-  );
+    );
+  });
+  return <>{newsList}</>;
 };
 
-const Index = ({news}: NewsArticleProps) => {
+const Index = ({ data }: NewsArticleProps) => {
   const { t } = useTranslation("common");
   return (
     <>
@@ -65,9 +67,9 @@ const Index = ({news}: NewsArticleProps) => {
         <div className="mb-20">
           <p className="mb-20 text-[28px]">{t("Top.Headline.News")}</p>
           <div className="mx-[60px] mb-[60px]">
-            <NewsArticle news={news} />
+            <NewsArticle data={data} />
           </div>
-          <MoreButton />
+          <MoreButton url="news" />
         </div>
         <div>
           <p className="mb-20 text-[28px]">{t("Top.Headline.CorporateName")}</p>
@@ -82,12 +84,27 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
-  const data = await listNews(5);
-  const news = JSON.parse(JSON.stringify(data));
-  return {
-    props: {
-      news: news,
-      ...translations,
-    },
-  };
+  try {
+    const params = {
+      article: "5",
+    };
+    const query_params = new URLSearchParams(params); 
+    const data = await fetch(`http://127.0.0.1:3000/api/news/list?${query_params}`, {
+      method: "GET",
+    }).then((data) => data.json());
+    const news = JSON.parse(JSON.stringify(data));
+    return {
+      props: {
+        data: news,
+        ...translations,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        data: [],
+        ...translations,
+      },
+    };
+  }
 };
