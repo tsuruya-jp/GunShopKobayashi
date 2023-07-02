@@ -7,7 +7,8 @@ const createNews = async (req: NewsData) => {
       title: req.title,
       content: req.content,
       public: req.public,
-      createdAt: req.createdAt
+      createdAt: req.createdAt,
+      updatedAt: req.updatedAt
     },
   });
 
@@ -15,4 +16,3 @@ const createNews = async (req: NewsData) => {
 };
 
 export default createNews;
-

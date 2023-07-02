@@ -3,7 +3,7 @@ type NewsData = {
   title: string;
   content: JsonNullValueInput | InputJsonValue;
   public: boolean;
-  createdAt?: Date;
+  createdAt: Date;
   updatedAt: Date;
 };
 

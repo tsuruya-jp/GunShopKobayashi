@@ -30,7 +30,7 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
 
 export const NewsArticle = ({ data }: NewsArticleProps) => {
   const newsList = data.data.map((v: NewsData) => {
-    const date = format(new Date(v.updatedAt), "yyyy-MM-dd");
+    const date = format(new Date(v.createdAt), "yyyy-MM-dd");
     const permalink = String(date + "_" + v.title);
     return (
       <div key={v.id} className={`mb-8 ${styles.parent} flex`}>

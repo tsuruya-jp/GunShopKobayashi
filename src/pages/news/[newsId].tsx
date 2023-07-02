@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const data: NewsArticle = JSON.parse(JSON.stringify(res));
   const paths = data.data.map((v: NewsData) => {
-    const date = format(new Date(v.updatedAt), "yyyy-MM-dd");
+    const date = format(new Date(v.createdAt), "yyyy-MM-dd");
     const permalink = String(date + "_" + v.title);
     return {
       params: {
