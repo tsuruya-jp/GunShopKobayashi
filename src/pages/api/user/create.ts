@@ -1,9 +1,14 @@
 import createUser from "@/features/user/api/create";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getToken } from "next-auth/jwt"
 import bcrypt from "bcryptjs";
 
 const execute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    const token = await getToken({ req });
+    if (!token) {
+      res.status(401).end();
+    } 
     const userId = crypto.randomUUID();
     const hashPass = await bcrypt.hash(req.body.pass, 10);
     const data = {

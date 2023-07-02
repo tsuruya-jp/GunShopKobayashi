@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
-
-const listNews = async (quantity?: number) => {
+const listNews = async (value?: number) => {
+  const quantity = value !== 0 ? value : undefined;
   const result = await prisma.news.findMany({
     take: quantity,
     orderBy: {

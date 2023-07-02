@@ -1,4 +1,5 @@
 import create from "@/features/news/api/create"
+import { format } from "date-fns";
 import { NextApiRequest, NextApiResponse } from "next"
 
 const execute = async(
@@ -6,8 +7,8 @@ const execute = async(
   res: NextApiResponse
 ) => {
   try{
-    const newsId = crypto.randomUUID();
     const now = new Date();
+    const newsId = format(new Date(now), "yyyy-MM-dd") + "_" + req.body.title;
     const data = {
       id: newsId,
       title: req.body.title,
