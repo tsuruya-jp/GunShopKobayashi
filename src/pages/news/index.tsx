@@ -1,29 +1,66 @@
 import Footer from "@/components/layouts/footer/Footer";
 import Header from "@/components/layouts/header/Header";
-import { Pagination } from '../../features/news/conponents/pagnation/Pagination';
-import { GetStaticProps } from "next";
+import { Pagination } from "../../features/news/conponents/pagnation/Pagination";
+import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import listNews from "@/features/news/api/list";
+import { NewsArticle } from "@/features/news/conponents/pagnation/NewsArticle";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-const NewsList = () => {
-  return(
+type Props = {
+  data: NewsArticle;
+  pagination: {
+    count: number;
+    currentPage: number;
+  };
+};
+
+const NewsList = ({ data, pagination }: Props) => {
+  return (
     <>
       <Header />
-      <Pagination maxPageNumber={5} currentPageNumber={4}/>
+      <div className={`w-[880px] mx-auto mt-[80px] mb-[120px]`}>
+        <h1 className={`title font-bold mb-14`}>新着情報</h1>
+        <NewsArticle data={data} />
+        <Pagination pagination={pagination} />
+      </div>
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default NewsList;
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
-  const data = await listNews(5);
-  const news = JSON.parse(JSON.stringify(data));
+  const queryString = query.page ?? "";
+  const currentPage = () => {
+    if(Number(queryString) <= 1){
+      return 1;
+    }
+    return Number(queryString);
+  }
+  const offset = (currentPage() - 1) * 10;
+  const params = {
+    take: "10",
+    skip: String(offset),
+  };
+  const query_params = new URLSearchParams(params);
+  const res = await fetch(`http://127.0.0.1:3000/api/news/list?${query_params}`, {
+    method: "GET",
+  }).then((res) => res.json());
+  const count = await fetch(`http://127.0.0.1:3000/api/news/count`, {
+    method: "GET",
+  }).then((res) => res.json());
+
+  const news: NewsArticle = await JSON.parse(JSON.stringify(res));
+
   return {
     props: {
-      news: news,
+      data: news,
+      pagination: {
+        count: count.data,
+        currentPage: currentPage(),
+      },
       ...translations,
     },
   };

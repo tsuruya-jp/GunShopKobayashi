@@ -4,23 +4,36 @@ import { format } from "date-fns";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const News = ({ news }: any) => {
+  const heightRef = useRef<HTMLDivElement>(null);
+  const [height, update] = useState(Number())
+  useLayoutEffect(() => {
+    const h1 = window.innerHeight;
+    const h2 = heightRef.current!.offsetHeight;
+    if(h1 > h2){
+      update(h1);
+    }else if(h1 < h2){
+      update(h2);
+    }
+  }, []);
+
   const raw = news.data.content;
   const contentState = convertFromRaw(raw);
   const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
   const date = format(new Date(news.data.updatedAt), "yyyy-MM-dd");
+  
   return (
-    <>
+    <div ref={heightRef}>
       <Header />
-      <div className="h-[calc(100vh-640px)] w-[880px] mx-auto mt-[80px] mb-[120px]">
+      <div className={`h-[calc(${height}px-640px)] w-[880px] mx-auto mt-[80px] mb-[120px]`}>
         <div className="text-xs">{date}</div>
         <h1 className={`title font-bold mb-4`}>{news.data.title}</h1>
         <Editor editorState={editorState} onChange={setEditorState} readOnly={true} />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
@@ -28,7 +41,8 @@ export default News;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const params = {
-    article: "",
+    take: "",
+    skip: ""
   };
   const query_params = new URLSearchParams(params);
   const res = await fetch(`http://127.0.0.1:3000/api/news/list?${query_params}`, {

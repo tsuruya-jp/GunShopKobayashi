@@ -1,34 +1,62 @@
-import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import { mdiArrowLeftCircleOutline, mdiArrowRightCircleOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import Link from "next/link";
 
 type PaginationProps = {
-  maxPageNumber: number;
-  currentPageNumber: number;
-};
+  pagination:{
+    count: number,
+    currentPage: number
+  }
+}
 
-export const Pagination = ({ maxPageNumber, currentPageNumber }: PaginationProps) => {
-  const prevPage = currentPageNumber - 1;
-  const nextPage = currentPageNumber + 1;
+export const Pagination = ({pagination}: PaginationProps) => {
+  const per = Math.ceil(55 / 10);
+  let fromPagination: number;
+  if(pagination.currentPage <= 2 || per < 5){
+    fromPagination = 1;
+  }else if(per >= 5 && pagination.currentPage >= per - 2){
+    fromPagination = per - 4;
+  }else{
+    fromPagination = pagination.currentPage - 2;
+  };
+  const maxPage = () => {
+    let roop: number = fromPagination + 4;
+    if(per < 5){
+      roop = per;
+    }
+    return roop;
+  }
+  const page = () => {
+    const elements = []; 
+    for(let i = fromPagination; i <= maxPage(); i++){
+      elements.push(
+        <div key={i} className="mx-1">
+          <Link className={`px-1 ${i == pagination.currentPage ? "text-gray-400" : "text-black"} hover:bg-slate-400 hover:text-slate-100`} href={`/news?page=${i}`}>{i}</Link>
+        </div>
+      );
+    }
+    return elements;
+  };
 
   return (
-    <div className="flex px-3 my-12">
-      {currentPageNumber !== 1 && (
-        <Link href={`/blogs/page/${prevPage}`}>
-          <div className="flex">
-            <Icon path={mdiChevronLeft} size={1} />
-            <div>Prev</div>
-          </div>
-        </Link>
-      )}
-      {currentPageNumber !== maxPageNumber && (
-        <Link href={`/blogs/page/${nextPage}`}>
-          <div className="ml-4 flex">
-            <div>Next</div>
-            <Icon path={mdiChevronRight} size={1} />
-          </div>
-        </Link>
-      )}
+    <div className="w-fit mx-auto flex justify-between">
+      <div className="w-6">
+        {pagination.currentPage !== 1 &&
+          <Link href={`/news?page=${pagination.currentPage - 1}`}>
+            <Icon path={mdiArrowLeftCircleOutline} size={1} />
+          </Link>
+        }
+      </div>
+      <div className="flex">{page()}</div>
+      <div className="w-6">
+        {pagination.currentPage !== per &&
+          <Link href={`/news?page=${pagination.currentPage + 1}`}>
+            <Icon path={mdiArrowRightCircleOutline} size={1} />
+          </Link>
+        }
+      </div>
     </div>
   );
 };
+
+

@@ -1,4 +1,4 @@
-import listNews from "@/features/news/api/list";
+import countNews from "@/features/news/api/count";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const execute = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -6,7 +6,7 @@ const execute = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method!.toLocaleLowerCase() !== 'get') {
       return res.status(405).end()
     }
-    const data = await listNews(Number(req.query.take), Number(req.query.skip));
+    const data = await countNews();
     res.status(200).json({ data });
   } catch (err) {
     res.status(500).end();

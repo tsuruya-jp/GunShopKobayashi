@@ -10,3 +10,7 @@ type NewsData = {
 type NewsArticle = {
   data: NewsData[];
 };
+
+type NewsArticleProps = {
+  data: NewsArticle;
+};

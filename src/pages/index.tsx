@@ -5,16 +5,10 @@ import Header from "@/components/layouts/header/Header";
 import Footer from "@/components/layouts/footer/Footer";
 import MoreButton from "@/components/elements/morebutton/MoreButton";
 import Image from "@/components/elements/image/Image";
-import styles from "../styles/Top.module.scss";
-import { format } from "date-fns";
-import Link from "next/link";
+import { NewsArticle } from "@/features/news/conponents/pagnation/NewsArticle";
 
 type ProductCardProps = {
   assortment: string;
-};
-
-type NewsArticleProps = {
-  data: NewsArticle;
 };
 
 export const ProductCard = ({ assortment }: ProductCardProps) => {
@@ -26,22 +20,6 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
       <MoreButton />
     </div>
   );
-};
-
-export const NewsArticle = ({ data }: NewsArticleProps) => {
-  const newsList = data.data.map((v: NewsData) => {
-    const date = format(new Date(v.createdAt), "yyyy-MM-dd");
-    const permalink = String(date + "_" + v.title);
-    return (
-      <div key={v.id} className={`mb-8 ${styles.parent} flex`}>
-        <p className="w-[100px] mr-[60px]">{date}</p>
-        <Link href={`/news/${permalink}`} passHref>
-          <p>{v.title}</p>
-        </Link>
-      </div>
-    );
-  });
-  return <>{newsList}</>;
 };
 
 const Index = ({ data }: NewsArticleProps) => {
@@ -66,9 +44,7 @@ const Index = ({ data }: NewsArticleProps) => {
         </div>
         <div className="mb-20">
           <p className="mb-20 text-[28px]">{t("Top.Headline.News")}</p>
-          <div className="mx-[60px] mb-[60px]">
-            <NewsArticle data={data} />
-          </div>
+          <NewsArticle data={data} />
           <MoreButton url="news" />
         </div>
         <div>
@@ -86,7 +62,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
   try {
     const params = {
-      article: "5",
+      take: "5",
+      skip: ""
     };
     const query_params = new URLSearchParams(params);
     const data = await fetch(`http://127.0.0.1:3000/api/news/list?${query_params}`, {
