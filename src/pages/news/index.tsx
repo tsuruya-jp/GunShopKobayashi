@@ -15,10 +15,25 @@ type Props = {
 };
 
 const NewsList = ({ data, pagination }: Props) => {
+  const contentHeight = useRef<HTMLDivElement>(null);
+  const setHeight = () =>{
+    if(!contentHeight.current) return;
+    contentHeight.current.style.height = "";
+    const content = contentHeight.current.offsetHeight + 640;
+    if(window.innerHeight > content){
+      const height = window.innerHeight - 640;
+      contentHeight.current.style.height = height.toString() + "px";
+    }
+  }
+  
+  useEffect(() => {
+    setHeight();
+  }, [data]);
+
   return (
     <>
       <Header />
-      <div className={`w-[880px] mx-auto mt-[80px] mb-[120px]`}>
+      <div ref={contentHeight} className={`w-[880px] mx-auto mt-[80px] mb-[120px]`}>
         <h1 className={`title font-bold mb-14`}>新着情報</h1>
         <NewsArticle data={data} />
         <Pagination pagination={pagination} />
