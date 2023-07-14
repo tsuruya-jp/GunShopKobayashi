@@ -10,7 +10,7 @@ type PaginationProps = {
 }
 
 export const Pagination = ({pagination}: PaginationProps) => {
-  const per = Math.ceil(55 / 10);
+  const per = Math.ceil(pagination.count / 10);
   let fromPagination: number;
   if(pagination.currentPage <= 2 || per < 5){
     fromPagination = 1;

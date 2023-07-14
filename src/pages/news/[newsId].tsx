@@ -4,19 +4,22 @@ import { format } from "date-fns";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const News = ({ news }: any) => {
-  const heightRef = useRef<HTMLDivElement>(null);
-  const [height, update] = useState(Number())
-  useLayoutEffect(() => {
-    const h1 = window.innerHeight;
-    const h2 = heightRef.current!.offsetHeight;
-    if(h1 > h2){
-      update(h1);
-    }else if(h1 < h2){
-      update(h2);
+  const contentHeight = useRef<HTMLDivElement>(null);
+  const setHeight = () =>{
+    if(!contentHeight.current) return;
+    contentHeight.current.style.height = "";
+    const content = contentHeight.current.offsetHeight + 640;
+    if(window.innerHeight > content){
+      const height = window.innerHeight - 640;
+      contentHeight.current.style.height = height.toString() + "px";
     }
+  }
+  
+  useEffect(() => {
+    setHeight();
   }, []);
 
   const raw = news.data.content;
@@ -25,15 +28,15 @@ const News = ({ news }: any) => {
   const date = format(new Date(news.data.updatedAt), "yyyy-MM-dd");
   
   return (
-    <div ref={heightRef}>
+    <>
       <Header />
-      <div className={`h-[calc(${height}px-640px)] w-[880px] mx-auto mt-[80px] mb-[120px]`}>
+      <div ref={contentHeight} className={`w-[880px] mx-auto mt-[80px] mb-[120px]`}>
         <div className="text-xs">{date}</div>
         <h1 className={`title font-bold mb-4`}>{news.data.title}</h1>
         <Editor editorState={editorState} onChange={setEditorState} readOnly={true} />
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

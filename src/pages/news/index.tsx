@@ -4,7 +4,7 @@ import { Pagination } from "../../features/news/conponents/pagnation/Pagination"
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NewsArticle } from "@/features/news/conponents/pagnation/NewsArticle";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef} from "react";
 
 type Props = {
   data: NewsArticle;
