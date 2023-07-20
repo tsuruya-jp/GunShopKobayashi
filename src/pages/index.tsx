@@ -3,7 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import Header from "@/components/layouts/header/Header";
 import Footer from "@/components/layouts/footer/Footer";
-import MoreButton from "@/components/elements/morebutton/MoreButton";
+import Button from "@/components/elements/button/Button";
 import Image from "@/components/elements/image/Image";
 import { NewsArticle } from "@/features/news/conponents/pagnation/NewsArticle";
 
@@ -17,7 +17,7 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
     <div className="w-[280px] h-[380px] pt-24 bg-gray-400 text-center">
       <div className="text-[28px]">{t(`Top.Product.${assortment}`)}</div>
       <div className="mb-32 text-xs">{t(`Top.Product.En${assortment}`)}</div>
-      <MoreButton />
+      <Button />
     </div>
   );
 };
@@ -43,12 +43,76 @@ const Index = ({ data }: NewsArticleProps) => {
           </div>
         </div>
         <div className="mb-20">
-          <p className="mb-20 text-[28px]">{t("Top.Headline.News")}</p>
+          <p className="mb-16 text-[28px]">{t("Top.Headline.News")}</p>
           <NewsArticle data={data} />
-          <MoreButton url="news" />
+          <Button url="news" />
         </div>
-        <div>
-          <p className="mb-20 text-[28px]">{t("Top.Headline.CorporateName")}</p>
+        <div className="mb-20">
+          <p className="mb-10 text-[28px]">{t("Top.Headline.CorporateName")}</p>
+          <div className="flex justify-between">
+            <div className="flex-1 pr-[46px] whitespace-pre-wrap">
+              {t("Top.CorporateName.Description")}
+            </div>
+            <div className="w-[500px] relative">
+              <Image src="/about.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <div className="mb-20">
+          <div className="flex justify-between">
+            <div className="w-[500px] relative">
+              <Image src="/about.png" alt="" />
+            </div>
+            <div className="flex-1 pl-[46px]">
+              <p className="text-right mb-10 text-[24px]">{t("Top.Headline.HetakusoClub")}</p>
+              <div className="mb-16 whitespace-pre-wrap">{t("Top.HetakusoClub.Description")}</div>
+              <Button label={t("Top.HetakusoClub.Article")} />
+            </div>
+          </div>
+        </div>
+        <div className="mb-20">
+          <div className="flex justify-between">
+            <div className="flex-1 pr-[46px]">
+              <p className="mb-10 text-[24px]">{t("Top.Headline.Annex")}</p>
+              <div className="mb-16 whitespace-pre-wrap">{t("Top.Annex.Description")}</div>
+              <Button label={t("Top.Annex.Article")} />
+            </div>
+            <div className="w-[500px] relative">
+              <Image src="/about.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <div className="mb-20">
+          <div className="flex justify-between">
+            <div className="w-[500px] relative">
+              <Image src="/about.png" alt="" />
+            </div>
+            <div className="flex-1 pl-[46px]">
+              <p className="text-right mb-10 text-[24px]">{t("Top.Headline.RealProperty")}</p>
+              <div className="mb-16 whitespace-pre-wrap">{t("Top.RealProperty.Description")}</div>
+            </div>
+          </div>
+        </div>
+        <div className="mb-20">
+          <p className="mb-10 text-[24px]">{t("Top.Headline.StoreLocations")}</p>
+          <div className="flex justify-between">
+            <div className="w-[500px] relative">
+              <Image src="/about.png" alt="" />
+            </div>
+            <div className="flex-1 pl-5">
+              <div className="mb-16 whitespace-pre-wrap">{t("Top.StoreLocations.CorporateName")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.PostalCode")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.Address")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.BusinessHours")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.Hours")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.RegureClosingDay")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.Days")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.ByCar")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.CarInformation")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.ByTrain")}</div>
+              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.TrainInformation")}</div>
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
@@ -63,7 +127,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     const params = {
       take: "5",
-      skip: ""
+      skip: "",
     };
     const query_params = new URLSearchParams(params);
     const data = await fetch(`http://127.0.0.1:3000/api/news/list?${query_params}`, {
