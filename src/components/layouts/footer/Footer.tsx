@@ -1,6 +1,5 @@
 import Icon from '@mdi/react';
 import { mdiFacebook } from '@mdi/js';
-import styles from './Footer.module.scss';
 import { useTranslation } from 'next-i18next';
 const Footer = () => {
   const { t } = useTranslation('common');
@@ -23,7 +22,7 @@ const Footer = () => {
           <div className='w-3/4 mt-6 mb-auto'>
             <div className='w-[80%] mx-auto flex justify-between'>
               <div className='w-[30%]'>
-                <div className={`${styles.parent}`}>
+                <div className="parent">
                   <a href=''>{t('Footer.Home')}</a>
                 </div>
                 <div className='pt-4'>
@@ -40,7 +39,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className='w-[30%]'>
-                <div className={`${styles.parent}`}>
+                <div className="parent">
                   <a href=''>{t('Footer.News')}</a>
                 </div>
                 <div className='pt-4'>
@@ -57,10 +56,10 @@ const Footer = () => {
                 </div>
               </div>
               <div className='w-[30%]'>
-                <div className={`${styles.parent}`}>
+                <div className="parent">
                   <a href=''>{t('Footer.Links')}</a>
                 </div>
-                <div className={`${styles.parent} pt-4`}>
+                <div className="parent pt-4">
                   <a href=''>{t('Footer.Contact')}</a>
                 </div>
                 <div className={`pt-4`}>

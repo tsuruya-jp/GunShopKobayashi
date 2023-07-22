@@ -7,7 +7,7 @@ export const NewsArticle = ({ data }: NewsArticleProps) => {
     const date = format(new Date(v.createdAt), "yyyy-MM-dd");
     const permalink = String(date + "_" + v.title);
     return (
-      <div key={v.id} className={`mb-8 ${styles.parent} flex`}>
+      <div key={v.id} className={`mb-8 parent flex`}>
         <p className="w-[100px] mr-[60px]">{date}</p>
         <Link href={`/news/${permalink}`} passHref>
           <p>{v.title}</p>

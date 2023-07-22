@@ -21,3 +21,21 @@ div, p{
     bottom: 0px;
   }
 }
+
+.flex-component {
+  @apply flex justify-between mb-20;
+}
+
+.parent {
+  padding-bottom: 30px;
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 0;
+    border-bottom: 1px solid #aaa;
+    position: absolute;
+    bottom: 0px;
+  }
+}

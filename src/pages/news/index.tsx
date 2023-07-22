@@ -33,7 +33,7 @@ const NewsList = ({ data, pagination }: Props) => {
   return (
     <>
       <Header />
-      <div ref={contentHeight} className={`w-[880px] mx-auto mt-[80px] mb-[120px]`}>
+      <div ref={contentHeight} className={`lg:w-[880px] mx-auto mt-[80px] mb-[120px]`}>
         <h1 className={`title font-bold mb-14`}>新着情報</h1>
         <NewsArticle data={data} />
         <Pagination pagination={pagination} />
