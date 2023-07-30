@@ -14,7 +14,6 @@ const center = {
 
 const Map = () => {
   return(
-    <>
       <LoadScriptNext googleMapsApiKey={key}>
         <GoogleMap
           mapContainerStyle={container}
@@ -29,7 +28,6 @@ const Map = () => {
           <Marker position={center} label={""} />
         </GoogleMap>
       </LoadScriptNext>
-    </>
   )
 }
 

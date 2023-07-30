@@ -7,6 +7,7 @@ import Button from "@/components/elements/button/Button";
 import Image from "@/components/elements/image/Image";
 import { NewsArticle } from "@/features/news/conponents/pagnation/NewsArticle";
 import Map from "@/features/map/components/Map";
+import RealProperty from "@/components/elements/realProperty/RealProperty";
 
 type ProductCardProps = {
   assortment: string;
@@ -15,9 +16,9 @@ type ProductCardProps = {
 export const ProductCard = ({ assortment }: ProductCardProps) => {
   const { t } = useTranslation("common");
   return (
-    <div className="w-[280px] h-[380px] pt-24 bg-gray-400 text-center">
-      <div className="text-[28px]">{t(`Top.Product.${assortment}`)}</div>
-      <div className="mb-32 text-xs">{t(`Top.Product.En${assortment}`)}</div>
+    <div className="md:w-[31.8%] h-[220px] md:h-[380px] lg:h-[520px] pt-12 md:pt-24 lg:pt-36 mb-6 md:mb-0 bg-gray-400 text-center">
+      <div className="text-3xl">{t(`Top.Product.${assortment}`)}</div>
+      <div className="mb-8 md:mb-32 text-xs">{t(`Top.Product.En${assortment}`)}</div>
       <Button />
     </div>
   );
@@ -28,12 +29,12 @@ const Index = ({ data }: NewsArticleProps) => {
   return (
     <>
       <Header />
-      <div className="h-[580px] mb-20">
-        <Image src="/main.png" alt=""/>
-      </div>
-      <main className="lg:w-[880px] md:w-[720px] mx-auto">
-        <div className="mb-20">
-          <p className="mb-5 text-[28px]">{t("Top.Headline.Product")}</p>
+      <main className="">
+        <div className="mb-16 md:mb-32">
+          <Image src="/main.png" alt=""/>
+        </div>
+        <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">
+          <p className="mb-5 text-3xl">{t("Top.Headline.Product")}</p>
           <div className="w-fit mb-10 py-3 px-7 text-xs bg-gray-200">
             {t("Top.Product.ViewAllGuns")}
           </div>
@@ -43,69 +44,75 @@ const Index = ({ data }: NewsArticleProps) => {
             <ProductCard assortment="OnlineStore" />
           </div>
         </div>
-        <div className="mb-20">
-          <p className="mb-16 text-[28px]">{t("Top.Headline.News")}</p>
+        <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">
+          <p className="mb-10 md:mb-16 text-3xl">{t("Top.Headline.News")}</p>
           <NewsArticle data={data} />
           <Button url="news" />
         </div>
-        <div className="mb-20">
-          <p className="mb-10 text-[28px]">{t("Top.Headline.CorporateName")}</p>
-          <div className="flex justify-between">
-            <div className="flex-1 pr-[46px] whitespace-pre-wrap">
-              {t("Top.CorporateName.Description")}
+        <div className="image-component">
+          <div className="flex-component ml-auto">
+            <div className="description px-4 md:pl-0 md:pr-[46px] md:ml-5 lg:ml-8 mb-12">
+              <p className="mb-10 text-3xl">{t("Top.Headline.CorporateName")}</p>
+              <div className="md:pr-[46px] leading-loose whitespace-pre-wrap">
+                {t("Top.CorporateName.Description")}
+              </div>
             </div>
-            <div className="w-[56.82%]">
+            <div className="flex-image">
               <Image src="/about.png" alt=""/>
             </div>
           </div>
         </div>
-        <div className="flex-component">
-          <div className="w-[56.82%]">
-            <Image src="/about.png" alt=""/>
-          </div>
-          <div className="flex-1 pl-[46px]">
-            <p className="text-right mb-10 text-[24px]">{t("Top.Headline.HetakusoClub")}</p>
-            <div className="mb-16 whitespace-pre-wrap">{t("Top.HetakusoClub.Description")}</div>
-            <Button label={t("Top.HetakusoClub.Article")} />
-          </div>
-        </div>
-        <div className="flex-component">
-          <div className="flex-1 pr-[46px]">
-            <p className="mb-10 text-[24px]">{t("Top.Headline.Annex")}</p>
-            <div className="mb-16 whitespace-pre-wrap">{t("Top.Annex.Description")}</div>
-            <Button label={t("Top.Annex.Article")} />
-          </div>
-          <div className="w-[56.82%]">
-            <Image src="/about.png" alt=""/>
+        <div className="image-component">
+          <div className="flex-component flex-row-reverse mr-auto">
+            <div className="description px-4 md:pr-0 md:pl-[46px] md:mr-5 lg:mr-8 mb-12">
+              <p className="md:text-right headline-2">{t("Top.Headline.HetakusoClub")}</p>
+              <div className="mb-4 md:mb-16 whitespace-pre-wrap">{t("Top.HetakusoClub.Description")}</div>
+              <Button label={t("Top.HetakusoClub.Article")} />
+            </div>
+            <div className="flex-image">
+              <Image src="/about.png" alt=""/>
+            </div>
           </div>
         </div>
-        <div className="flex-component">
-          <div className="w-2/5">
-            <Image src="/realProperty.png" alt=""/>
-          </div>
-          <div className="flex-1 pl-[46px]">
-            <p className="text-right mb-10 text-[24px]">{t("Top.Headline.RealProperty")}</p>
-            <div className="whitespace-pre-wrap">{t("Top.RealProperty.Description")}</div>
+        <div className="image-component">
+          <div className="flex-component ml-auto">
+            <div className="description px-4 ml-0 md:pr-[46px] md:ml-5 lg:ml-8 mb-12">
+              <p className="headline-2">{t("Top.Headline.Annex")}</p>
+              <div className="mb-4 md:mb-16 whitespace-pre-wrap">{t("Top.Annex.Description")}</div>
+              <Button label={t("Top.Annex.Article")} />
+            </div>
+            <div className="flex-image">
+              <Image src="/about.png" alt=""/>
+            </div>
           </div>
         </div>
-        <div className="mb-20">
-          <p className="mb-10 text-[24px]">{t("Top.Headline.StoreLocations")}</p>
-          <div className="flex justify-between">
-            <div className="w-[56.82%] relative">
+        <RealProperty />
+        <div className="mb-16">
+          <p className="w-[90%] mx-auto mb-10 text-3xl">{t("Top.Headline.StoreLocations")}</p>
+          <div className="flex-component">
+            <div className="flex-image h-[300px] lg:h-[450px]">
               <Map />
             </div>
-            <div className="flex-1 pl-5">
-              <div className="mb-5 whitespace-pre-wrap">{t("Top.StoreLocations.CorporateName")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.PostalCode")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.Address")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.BusinessHours")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.Hours")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.RegureClosingDay")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.Days")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.ByCar")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.CarInformation")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.ByTrain")}</div>
-              <div className="whitespace-pre-wrap">{t("Top.StoreLocations.TrainInformation")}</div>
+            <div className="flex-1 w-[95%] md:pl-5 pt-8 md:pt-0 mx-auto">
+              <div className="mb-8 text-xl font-bold parent">{t("Top.StoreLocations.CorporateName")}</div>
+              <div className="mb-8 parent">
+                <p>{t("Top.StoreLocations.PostalCode")}</p>
+                <p>{t("Top.StoreLocations.Address")}</p>
+              </div>
+              <div className="mb-8 parent">
+                <div className="flex mb-3">
+                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">{t("Top.StoreLocations.BusinessHours")}</p>
+                  <p className="py-1">{t("Top.StoreLocations.Hours")}</p>
+                </div>
+                <div className="flex">
+                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">{t("Top.StoreLocations.RegureClosingDay")}</p>
+                  <p className="py-1">{t("Top.StoreLocations.Days")}</p>
+                </div>
+              </div>
+              <p className="mb-1">{t("Top.StoreLocations.ByCar")}</p>
+              <p className="mb-3">{t("Top.StoreLocations.CarInformation")}</p>
+              <p className="mb-1">{t("Top.StoreLocations.ByTrain")}</p>
+              <p>{t("Top.StoreLocations.TrainInformation")}</p>
             </div>
           </div>
         </div>

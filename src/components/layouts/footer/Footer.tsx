@@ -5,7 +5,7 @@ const Footer = () => {
   const { t } = useTranslation('common');
   return (
     <>
-      <footer className='h-[360px] bg-[#666] text-white'>
+      <footer className='h-[360px] bg-[#666] [&_p]:text-white [&_a]:text-white'>
         <div className='pt-10 flex'>
           <div className='w-1/4 my-auto'>
             <div className='flex justify-center'>logo</div>

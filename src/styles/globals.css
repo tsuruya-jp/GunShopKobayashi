@@ -3,8 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
-div, p{
-  @apply font-noto;
+@layer base {
+  div, p {
+    @apply font-noto text-gray-800;
+  }
+}
+
+.image {
+  object-fit: contain;
+  position: relative !important;
 }
 
 .title {
@@ -23,11 +30,27 @@ div, p{
 }
 
 .flex-component {
-  @apply flex justify-between mb-20;
+  @apply md:flex justify-between max-w-[1340px] md:mb-20 md:mx-auto;
+}
+
+.image-component {
+  @apply md:pb-[80px] lg:pb-[120px] mb-32;
+}
+
+.flex-image {
+  @apply w-full md:w-1/2;
+}
+
+.headline-2 {
+  @apply mb-4 md:mb-10 text-base md:text-lg;
+}
+
+.description {
+  @apply md:max-w-[50%] md:px-0;
 }
 
 .parent {
-  padding-bottom: 30px;
+  @apply pb-6 md:pb-[30px];
   position: relative;
   &:before {
     content: '';

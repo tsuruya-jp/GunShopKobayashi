@@ -14,7 +14,7 @@ export const Button = ({ label = "More", url, ...props }: ButtonProps) => {
       <button {...props} className="flex justify-center m-auto">
         <a
           href={`/${url}`}
-          className={`${styles.a} flex justify-center items-center px-20 py-2 text-xs`}
+          className={`${styles.a} flex justify-center items-center px-10 lg:px-20 py-2 text-xs`}
         >
           <Icon path={mdiPlus} size={1} />
           {label}

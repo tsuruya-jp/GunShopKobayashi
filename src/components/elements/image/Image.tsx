@@ -7,12 +7,14 @@ type ImageProps = {
 
 const Image = ({ src, alt }: ImageProps) => {
   return (
-    <div className="relative aspect-auto h-full">
+    <div className="relative">
       <NextImage
-        className="object-cover"
+        className="image"
         src={src}
         alt={alt}
+        priority
         fill
+        sizes="100vw"
       />
     </div>
   );

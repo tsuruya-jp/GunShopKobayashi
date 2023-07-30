@@ -18,6 +18,11 @@ module.exports = {
         'Noto Sans JP',
         'Noto Sans',
         'sans-serif'
+      ],
+      mincho: [
+        'YuMincho',
+        'Yu Mincho',
+        'serif'
       ]
     }
   },

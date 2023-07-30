@@ -4,9 +4,9 @@ const Header = () => {
   const { t } = useTranslation("common");
   return (
     <>
-      <header className="h-[80px] flex justify-between bg-gray-100">
-        <div className="my-auto ml-7">logo</div>
-        <div className={`my-auto flex ${styles.h_div}`}>
+      <header className="h-20 flex justify-center md:justify-between bg-gray-100">
+        <div className="my-auto md:ml-7">logo</div>
+        <div className={`my-auto hidden md:flex ${styles.h_div}`}>
           <div>
             <a href="">{t("Header.ProductList")}</a>
           </div>
