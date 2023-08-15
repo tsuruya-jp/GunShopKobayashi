@@ -10,7 +10,7 @@ services:
       - 6006:6006
     volumes:
       - ./src:/src
-    command: sh -c 'npm run dev'
+    command: bash
     tty: true
   db:
     image: postgres:latest

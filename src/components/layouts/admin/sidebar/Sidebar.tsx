@@ -1,6 +1,6 @@
 import Icon from '@mdi/react';
 import { mdiAccount, mdiFileDocumentEdit, mdiFolderMultipleImage, mdiPistol } from '@mdi/js';
-import styles from './Sidebar.module.scss';
+import styles from './Sidebar.module.css';
 
 type SidebarProps = {
   disabled: boolean;

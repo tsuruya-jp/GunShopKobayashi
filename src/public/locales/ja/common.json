@@ -26,7 +26,52 @@
     "CopyRight": "© 2023 小林銃砲火薬店 All Rights Reserved."
   },
   "Top": {
-    "ProductList": "商品一覧",
-    "ViewAllGuns": "すべての銃を見る"
+    "Headline": {
+      "Product": "商品一覧",
+      "News": "お知らせ",
+      "CorporateName": "ようこそGUNの世界へ・・・",
+      "HetakusoClub": "ヘタクソクラブ",
+      "Annex": "京のてっぽうやANNEX",
+      "RealProperty": "小林不動産",
+      "StoreLocations": "店舗案内"
+    },
+    "Product": {
+      "ViewAllGuns": "すべての銃を見る",
+      "NewGuns": "新銃",
+      "OldGuns": "中古銃",
+      "OnlineStore": "オンラインストア",
+      "EnNewGuns": "New Gun",
+      "EnOldGuns": "Old Gun",
+      "EnOnlineStore": "Online Store"
+    },
+    "CorporateName": {
+      "Description": "GUNアクションのターゲットは狩猟やクレー射撃にとどまらず、レパートリーは広く、老若男女を問わず幅広い層に支持され、生涯スポーツとして今、注目されています。\nGUNカルチャーの銃弾は異次元のパワーとスピードの世界であり、その魅力は他では経験できない凄さと醍醐味です。\n二条城に近い小林銃砲火薬店はアクセスのよい京都洛中にありながら広い駐車場もご用意し、遠方より多くのお客様にご来店いただいております。\n観光・ビジネスのついでに京のてっぽうや、小林銃砲火薬店へお立ち寄りください。"
+    },
+    "HetakusoClub": {
+      "Description": "ヘタクソクラブについて\nヘタクソクラブについて\nヘタクソクラブについて\nヘタクソクラブについて\nヘタクソクラブについて",
+      "Article": "ブログ記事"
+    },
+    "Annex": {
+      "Description": "ANNEXについて。\nANNEXについて。\nANNEXについて。\nANNEXについて。\nANNEXについて。",
+      "Article": "ブログ記事"
+    },
+    "RealProperty": {
+      "Description": "日頃は小林銃砲火薬店をご贔屓いただきありがとうございます。\nさて、小林銃砲火薬店は専門以外に不動産売買や仲介業務などの営業も行っております。\n不動産業も40有余年になり、この間培った信望を活かし取引実績を積み上げ、お客様のご要望にお応えして参りました。\n『不動産は時の運』と分析し、不動産の売却、購入の際には小林不動産へご用命賜わりますよう。\nまた、ご紹介も併せてお願い申し上げます。\n今後とも小林銃砲火薬店共々、ご愛顧のほどよろしくお願い致します。",
+      "Detail": "詳細",
+      "Close": "閉じる"
+    },
+    "StoreLocations": {
+      "CorporateName": "（有）小林銃砲火薬店",
+      "PostalCode": "〒602-8352",
+      "Address": "京都市上京区下立売通千本西入稲葉町446",
+      "BusinessHours": "営業時間",
+      "Hours": "10:00-19:00",
+      "RegureClosingDay": "定休日",
+      "Days": "日曜日, 祝日, 第4木曜日",
+      "ByCar": "●車でお越しの方",
+      "CarInformation": "名神高速道路　京都南ICより25分",
+      "ByTrain": "●電車でお越しの方",
+      "TrainInformation": "JR嵯峨野・山陰線「二条駅」より徒歩15分"
+    }
   }
 }
