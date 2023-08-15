@@ -5,10 +5,10 @@ import Header from "@/components/layouts/header/Header";
 import Footer from "@/components/layouts/footer/Footer";
 import Button from "@/components/elements/button/Button";
 import Image from "@/components/elements/image/Image";
-import { NewsArticle } from "@/features/news/conponents/pagnation/NewsArticle";
+import { NewsArticle } from "@/features/news/components/NewsArticle";
 import Map from "@/features/map/components/Map";
 import RealProperty from "@/components/elements/realProperty/RealProperty";
-import Slider from "@/features/slider/Slider";
+import Slider from "@/features/slider/components/Slider";
 
 type ProductCardProps = {
   assortment: string;
@@ -28,11 +28,11 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
 const Index = ({ data }: NewsArticleProps) => {
   const { t } = useTranslation("common");
   const items: SlideItem[] = [
-    {id: 1, content: "/main1.png"},
-    {id: 2, content: "/main2.png"},
-    {id: 3, content: "/main3.png"},
-    {id: 4, content: "/main4.png"},
-  ]
+    { id: 1, content: "/main1.png" },
+    { id: 2, content: "/main2.png" },
+    { id: 3, content: "/main3.png" },
+    { id: 4, content: "/main4.png" },
+  ];
   return (
     <>
       <Header />
@@ -65,7 +65,7 @@ const Index = ({ data }: NewsArticleProps) => {
               </div>
             </div>
             <div className="flex-image">
-              <Image src="/about.png" alt=""/>
+              <Image src="/about.png" alt="" />
             </div>
           </div>
         </div>
@@ -73,11 +73,13 @@ const Index = ({ data }: NewsArticleProps) => {
           <div className="flex-component flex-row-reverse mr-auto">
             <div className="description px-4 md:pr-0 md:pl-[46px] md:mr-5 lg:mr-8 mb-12">
               <p className="md:text-right headline-2">{t("Top.Headline.HetakusoClub")}</p>
-              <div className="mb-4 md:mb-16 whitespace-pre-wrap">{t("Top.HetakusoClub.Description")}</div>
+              <div className="mb-4 md:mb-16 whitespace-pre-wrap">
+                {t("Top.HetakusoClub.Description")}
+              </div>
               <Button label={t("Top.HetakusoClub.Article")} />
             </div>
             <div className="flex-image">
-              <Image src="/about.png" alt=""/>
+              <Image src="/about.png" alt="" />
             </div>
           </div>
         </div>
@@ -89,7 +91,7 @@ const Index = ({ data }: NewsArticleProps) => {
               <Button label={t("Top.Annex.Article")} />
             </div>
             <div className="flex-image">
-              <Image src="/about.png" alt=""/>
+              <Image src="/about.png" alt="" />
             </div>
           </div>
         </div>
@@ -101,18 +103,24 @@ const Index = ({ data }: NewsArticleProps) => {
               <Map />
             </div>
             <div className="flex-1 w-[95%] md:pl-5 pt-8 md:pt-0 mx-auto">
-              <div className="mb-8 text-xl font-bold parent">{t("Top.StoreLocations.CorporateName")}</div>
+              <div className="mb-8 text-xl font-bold parent">
+                {t("Top.StoreLocations.CorporateName")}
+              </div>
               <div className="mb-8 parent">
                 <p>{t("Top.StoreLocations.PostalCode")}</p>
                 <p>{t("Top.StoreLocations.Address")}</p>
               </div>
               <div className="mb-8 parent">
                 <div className="flex mb-3">
-                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">{t("Top.StoreLocations.BusinessHours")}</p>
+                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">
+                    {t("Top.StoreLocations.BusinessHours")}
+                  </p>
                   <p className="py-1">{t("Top.StoreLocations.Hours")}</p>
                 </div>
                 <div className="flex">
-                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">{t("Top.StoreLocations.RegureClosingDay")}</p>
+                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">
+                    {t("Top.StoreLocations.RegureClosingDay")}
+                  </p>
                   <p className="py-1">{t("Top.StoreLocations.Days")}</p>
                 </div>
               </div>

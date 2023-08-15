@@ -1,26 +1,20 @@
 import Footer from "@/components/layouts/footer/Footer";
 import Header from "@/components/layouts/header/Header";
+import { GetWindowSize } from "@/lib/hook";
 import { format } from "date-fns";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const News = ({ news }: any) => {
-  const contentHeight = useRef<HTMLDivElement>(null);
-  const setHeight = () =>{
-    if(!contentHeight.current) return;
-    contentHeight.current.style.height = "";
-    const content = contentHeight.current.offsetHeight + 640;
-    if(window.innerHeight > content){
-      const height = window.innerHeight - 640;
-      contentHeight.current.style.height = height.toString() + "px";
-    }
+  const { windowHeight, windowWidth } = GetWindowSize();
+  let height = 0;
+  if(windowWidth >= 768){
+    height = windowHeight - 640;
+  }else{
+    height = windowHeight - 408;
   }
-  
-  useEffect(() => {
-    setHeight();
-  }, []);
 
   const raw = news.data.content;
   const contentState = convertFromRaw(raw);
@@ -30,7 +24,7 @@ const News = ({ news }: any) => {
   return (
     <>
       <Header />
-      <div ref={contentHeight} className={`w-[880px] mx-auto mt-[80px] mb-[120px]`}>
+      <div className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`} style={{height: height}}>
         <div className="text-xs">{date}</div>
         <h1 className={`title font-bold mb-4`}>{news.data.title}</h1>
         <Editor editorState={editorState} onChange={setEditorState} readOnly={true} />
