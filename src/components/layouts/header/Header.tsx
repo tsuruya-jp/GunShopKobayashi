@@ -1,4 +1,4 @@
-import styles from "./Header.module.scss";
+import styles from "./Header.module.css";
 import { useTranslation } from "next-i18next";
 const Header = () => {
   const { t } = useTranslation("common");

@@ -1,5 +1,5 @@
 import { mdiPlus } from "@mdi/js";
-import styles from "./Button.module.scss";
+import styles from "./Button.module.css";
 import Icon from "@mdi/react";
 
 type ButtonProps = {

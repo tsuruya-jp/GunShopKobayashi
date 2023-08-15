@@ -8,6 +8,7 @@ import Image from "@/components/elements/image/Image";
 import { NewsArticle } from "@/features/news/conponents/pagnation/NewsArticle";
 import Map from "@/features/map/components/Map";
 import RealProperty from "@/components/elements/realProperty/RealProperty";
+import Slider from "@/features/slider/Slider";
 
 type ProductCardProps = {
   assortment: string;
@@ -26,12 +27,18 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
 
 const Index = ({ data }: NewsArticleProps) => {
   const { t } = useTranslation("common");
+  const items: SlideItem[] = [
+    {id: 1, content: "/main1.png"},
+    {id: 2, content: "/main2.png"},
+    {id: 3, content: "/main3.png"},
+    {id: 4, content: "/main4.png"},
+  ]
   return (
     <>
       <Header />
       <main className="">
         <div className="mb-16 md:mb-32">
-          <Image src="/main.png" alt=""/>
+          <Slider items={items} />
         </div>
         <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">
           <p className="mb-5 text-3xl">{t("Top.Headline.Product")}</p>
