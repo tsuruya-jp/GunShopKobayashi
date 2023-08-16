@@ -1,13 +1,16 @@
-import Footer from "@/components/layouts/footer/Footer";
 import Header from "@/components/layouts/header/Header";
+import Footer from "@/components/layouts/footer/Footer";
 import { Pagination } from "../../features/news/components/Pagination";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NewsArticle } from "@/features/news/components/NewsArticle";
-import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import listNews from "@/features/news/api/list";
+import countNews from "@/features/news/api/count";
+import { GetWindowSize } from "@/lib/hook";
 
 type Props = {
-  data: NewsArticle;
+  data: NewsData[];
   pagination: {
     count: number;
     currentPage: number;
@@ -15,26 +18,24 @@ type Props = {
 };
 
 const NewsList = ({ data, pagination }: Props) => {
-  const contentHeight = useRef<HTMLDivElement>(null);
-  const setHeight = () => {
-    if (!contentHeight.current) return;
-    contentHeight.current.style.height = "";
-    const content = contentHeight.current.offsetHeight + 640;
-    if (window.innerHeight > content) {
-      const height = window.innerHeight - 640;
-      contentHeight.current.style.height = height.toString() + "px";
-    }
-  };
-
-  useEffect(() => {
-    setHeight();
-  }, [data]);
+  const { t } = useTranslation("common");
+  const { windowHeight, windowWidth } = GetWindowSize();
+  let height = 0;
+  if (windowWidth >= 768) {
+    height = windowHeight - 640;
+  } else {
+    height = windowHeight - 408;
+  }
+  console.log(height);
 
   return (
     <>
       <Header />
-      <div ref={contentHeight} className={`lg:w-[880px] mx-auto mt-[80px] mb-[120px]`}>
-        <h1 className={`title font-bold mb-14`}>新着情報</h1>
+      <div
+        className={`lg:w-[880px] mx-auto mt-[80px] mb-[120px]`}
+        style={{ minHeight: height }}
+      >
+        <h1 className={`title font-bold mb-14`} suppressHydrationWarning={true}>{t("News.Headline")}</h1>
         <div className="w-[90%] mx-auto">
           <NewsArticle data={data} />
         </div>
@@ -57,25 +58,15 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
     return Number(queryString);
   };
   const offset = (currentPage() - 1) * 10;
-  const params = {
-    take: "10",
-    skip: String(offset),
-  };
-  const query_params = new URLSearchParams(params);
-  const res = await fetch(`http://127.0.0.1:3000/api/news/list?${query_params}`, {
-    method: "GET",
-  }).then((res) => res.json());
-  const count = await fetch(`http://127.0.0.1:3000/api/news/count`, {
-    method: "GET",
-  }).then((res) => res.json());
-
-  const news: NewsArticle = await JSON.parse(JSON.stringify(res));
+  const data = await listNews(10, offset);
+  const news: NewsData[] = await JSON.parse(JSON.stringify(data));
+  const count = await countNews();
 
   return {
     props: {
       data: news,
       pagination: {
-        count: count.data,
+        count: count,
         currentPage: currentPage(),
       },
       ...translations,

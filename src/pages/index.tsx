@@ -9,6 +9,7 @@ import { NewsArticle } from "@/features/news/components/NewsArticle";
 import Map from "@/features/map/components/Map";
 import RealProperty from "@/components/elements/realProperty/RealProperty";
 import Slider from "@/features/slider/components/Slider";
+import listNews from "@/features/news/api/list";
 
 type ProductCardProps = {
   assortment: string;
@@ -25,7 +26,7 @@ export const ProductCard = ({ assortment }: ProductCardProps) => {
   );
 };
 
-const Index = ({ data }: NewsArticleProps) => {
+const Index = ({ data }: NewsArticle) => {
   const { t } = useTranslation("common");
   const items: SlideItem[] = [
     { id: 1, content: "/main1.png" },
@@ -142,15 +143,8 @@ export default Index;
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
   try {
-    const params = {
-      take: "5",
-      skip: "",
-    };
-    const query_params = new URLSearchParams(params);
-    const data = await fetch(`http://127.0.0.1:3000/api/news/list?${query_params}`, {
-      method: "GET",
-    }).then((data) => data.json());
-    const news = await JSON.parse(JSON.stringify(data));
+    const data = await listNews(5, 0);
+    const news:NewsData[] = await JSON.parse(JSON.stringify(data));
     return {
       props: {
         data: news,

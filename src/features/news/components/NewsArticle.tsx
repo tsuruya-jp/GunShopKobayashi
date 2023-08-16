@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 import Link from "next/link";
 
-export const NewsArticle = ({ data }: NewsArticleProps) => {
-  const newsList = data.data.map((v: NewsData) => {
+export const NewsArticle = ({ data }: NewsArticle) => {
+  const newsList = data.map((v: NewsData) => {
     const date = format(new Date(v.createdAt), "yyyy-MM-dd");
     const permalink = String(date + "_" + v.title);
     return (
