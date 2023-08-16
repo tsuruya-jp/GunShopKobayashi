@@ -64,7 +64,7 @@ const Footer = () => {
                 <Link href="/">{t("Footer.Contact")}</Link>
               </div>
               <div className={`pt-4`}>
-                <Link href="/">{t("Footer.PrivacyPolicy")}</Link>
+                <Link href="/privacy">{t("Footer.PrivacyPolicy")}</Link>
               </div>
             </div>
           </div>

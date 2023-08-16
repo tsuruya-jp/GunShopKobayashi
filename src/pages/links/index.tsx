@@ -10,7 +10,7 @@ const Links = () => {
   return (
     <>
       <Header />
-      <div className="lg:w-[880px] mx-auto mt-[80px] mb-[120px]">
+      <div className="w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]">
         <h1 className="title font-bold mb-14" suppressHydrationWarning={true}>{t("Links.Headline")}</h1>
         <h2 className="text-xl mb-6">●国内主要銃砲／装弾代理店</h2>
         <div className="[&_div]:leading-8 mb-10 ml-12">

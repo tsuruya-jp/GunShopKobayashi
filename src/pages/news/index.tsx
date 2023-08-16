@@ -26,13 +26,12 @@ const NewsList = ({ data, pagination }: Props) => {
   } else {
     height = windowHeight - 408;
   }
-  console.log(height);
 
   return (
     <>
       <Header />
       <div
-        className={`lg:w-[880px] mx-auto mt-[80px] mb-[120px]`}
+        className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
         style={{ minHeight: height }}
       >
         <h1 className={`title font-bold mb-14`} suppressHydrationWarning={true}>{t("News.Headline")}</h1>
