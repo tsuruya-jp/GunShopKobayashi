@@ -14,7 +14,7 @@ const Links = () => {
         <h1 className="title font-bold mb-14" suppressHydrationWarning={true}>{t("Links.Headline")}</h1>
         <h2 className="text-xl mb-6">●国内主要銃砲／装弾代理店</h2>
         <div className="[&_div]:leading-8 mb-10 ml-12">
-          <div><Link href="" className="">日邦工業（株）</Link></div>
+          <div><Link href="">日邦工業（株）</Link></div>
           <div><Link href="">新エスケービー工業（株）</Link></div>
           <div><Link href="">サイトロンジャパン</Link></div>
           <div><Link href="">旭エスケービー（株）</Link></div>
@@ -27,7 +27,7 @@ const Links = () => {
         </div>
         <h2 className="text-xl mb-6">●射撃場</h2>
         <div className="[&_div]:leading-8 mb-10 ml-12">
-          <div><Link href="">笠取国際射撃場　 水・土曜日は小林銃砲店販売所営業中	</Link></div>
+          <div><Link href="">笠取国際射撃場　水・土曜日は小林銃砲店販売所営業中</Link></div>
           <div><Link href="">高槻国際射撃場</Link></div>
         </div>
       </div>
