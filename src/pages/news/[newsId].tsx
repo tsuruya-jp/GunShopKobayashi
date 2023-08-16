@@ -15,7 +15,7 @@ const News = ({ news }: { news: NewsData }) => {
   if (windowWidth >= 768) {
     height = windowHeight - 640;
   } else {
-    height = windowHeight - 408;
+    height = windowHeight - 448;
   }
 
   const raw = news.content;

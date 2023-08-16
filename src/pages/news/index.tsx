@@ -24,7 +24,7 @@ const NewsList = ({ data, pagination }: Props) => {
   if (windowWidth >= 768) {
     height = windowHeight - 640;
   } else {
-    height = windowHeight - 408;
+    height = windowHeight - 448;
   }
 
   return (
@@ -34,7 +34,9 @@ const NewsList = ({ data, pagination }: Props) => {
         className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
         style={{ minHeight: height }}
       >
-        <h1 className={`title font-bold mb-14`} suppressHydrationWarning={true}>{t("News.Headline")}</h1>
+        <h1 className={`title font-bold mb-14`} suppressHydrationWarning={true}>
+          {t("News.Headline")}
+        </h1>
         <div className="w-[90%] mx-auto">
           <NewsArticle data={data} />
         </div>

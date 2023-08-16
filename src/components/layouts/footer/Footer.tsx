@@ -7,7 +7,7 @@ const Footer = () => {
   const { t } = useTranslation("common");
   return (
     <footer className="md:h-[360px] bg-[#666] [&_p]:text-white [&_a]:text-white [&_p]:text-xs md:[&_p]:text-base [&_a]:text-xs md:[&_a]:text-base">
-      <div className="pt-2 md:pt-10 md:flex">
+      <div className="pt-6 md:pt-10 md:flex">
         <div className="md:w-1/4 my-auto">
           <div className="flex justify-center">logo</div>
           <div className="w-fit mx-auto">
@@ -20,13 +20,21 @@ const Footer = () => {
           </div>
         </div>
         <div className="md:h-[280px] w-[90%] md:w-px my-auto mx-auto bg-white"></div>
-        <div className="hidden md:block w-3/4 mt-6 mb-auto">
-          <div className="w-[90%] mx-auto flex justify-between">
+        <div className="hidden md:block w-3/4 mt-8 mb-auto">
+          <div className="w-[90%] mx-auto flex justify-between mb-20">
             <div className="w-[30%]">
-              <div className="parent">
+              <div className="after-line">
                 <Link href="/">{t("Footer.Home")}</Link>
               </div>
+              <div className="after-line pt-4">
+                <Link href="/news">{t("Footer.News")}</Link>
+              </div>
               <div className="pt-4">
+                <Link href="/about">{t("Footer.AboutUs")}</Link>
+              </div>
+            </div>
+            <div className="w-[30%]">
+              <div className="">
                 <Link href="/">{t("Footer.ProductList")}</Link>
               </div>
               <div className="pl-5 pt-4">
@@ -40,37 +48,21 @@ const Footer = () => {
               </div>
             </div>
             <div className="w-[30%]">
-              <div className="parent">
-                <Link href="/">{t("Footer.News")}</Link>
+              <div className="after-line">
+                <Link href="/contact">{t("Footer.Contact")}</Link>
               </div>
-              <div className="pt-4">
-                <Link href="/">{t("Footer.AboutUs")}</Link>
-              </div>
-              <div className="pl-5 pt-4">
-                <Link href="/">{t("Footer.CorporateInformation")}</Link>
-              </div>
-              <div className="pl-5 pt-4">
-                <Link href="/">{t("Footer.History")}</Link>
-              </div>
-              <div className="pl-5 pt-4">
-                <Link href="/">{t("Footer.OurBusiness")}</Link>
-              </div>
-            </div>
-            <div className="w-[30%]">
-              <div className="parent">
+              <div className="after-line pt-4">
                 <Link href="/links">{t("Footer.Links")}</Link>
               </div>
-              <div className="parent pt-4">
-                <Link href="/">{t("Footer.Contact")}</Link>
-              </div>
-              <div className={`pt-4`}>
+              <div className="pt-4">
                 <Link href="/privacy">{t("Footer.PrivacyPolicy")}</Link>
               </div>
             </div>
           </div>
+          <p className="text-center">{t("Footer.CopyRight")}</p>
         </div>
+        <p className="text-center pt-4 pb-6 md:hidden">{t("Footer.CopyRight")}</p>
       </div>
-      <p className="text-center pb-4">{t("Footer.CopyRight")}</p>
     </footer>
   );
 };
