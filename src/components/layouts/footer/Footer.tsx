@@ -1,6 +1,8 @@
 import Icon from "@mdi/react";
+import Link from "next/link";
 import { mdiFacebook } from "@mdi/js";
 import { useTranslation } from "next-i18next";
+
 const Footer = () => {
   const { t } = useTranslation("common");
   return (
@@ -22,47 +24,47 @@ const Footer = () => {
           <div className="w-[90%] mx-auto flex justify-between">
             <div className="w-[30%]">
               <div className="parent">
-                <a href="">{t("Footer.Home")}</a>
+                <Link href="/">{t("Footer.Home")}</Link>
               </div>
               <div className="pt-4">
-                <a href="">{t("Footer.ProductList")}</a>
+                <Link href="/">{t("Footer.ProductList")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <a href="">{t("Footer.NewGuns")}</a>
+                <Link href="/">{t("Footer.NewGuns")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <a href="">{t("Footer.OldGuns")}</a>
+                <Link href="/">{t("Footer.OldGuns")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <a href="">{t("Footer.OnlineStore")}</a>
+                <Link href="/">{t("Footer.OnlineStore")}</Link>
               </div>
             </div>
             <div className="w-[30%]">
               <div className="parent">
-                <a href="">{t("Footer.News")}</a>
+                <Link href="/">{t("Footer.News")}</Link>
               </div>
               <div className="pt-4">
-                <a href="">{t("Footer.AboutUs")}</a>
+                <Link href="/">{t("Footer.AboutUs")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <a href="">{t("Footer.CorporateInformation")}</a>
+                <Link href="/">{t("Footer.CorporateInformation")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <a href="">{t("Footer.History")}</a>
+                <Link href="/">{t("Footer.History")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <a href="">{t("Footer.OurBusiness")}</a>
+                <Link href="/">{t("Footer.OurBusiness")}</Link>
               </div>
             </div>
             <div className="w-[30%]">
               <div className="parent">
-                <a href="">{t("Footer.Links")}</a>
+                <Link href="/links">{t("Footer.Links")}</Link>
               </div>
               <div className="parent pt-4">
-                <a href="">{t("Footer.Contact")}</a>
+                <Link href="/">{t("Footer.Contact")}</Link>
               </div>
               <div className={`pt-4`}>
-                <a href="">{t("Footer.PrivacyPolicy")}</a>
+                <Link href="/">{t("Footer.PrivacyPolicy")}</Link>
               </div>
             </div>
           </div>

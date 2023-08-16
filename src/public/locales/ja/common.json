@@ -73,5 +73,11 @@
       "ByTrain": "●電車でお越しの方",
       "TrainInformation": "JR嵯峨野・山陰線「二条駅」より徒歩15分"
     }
+  },
+  "News": {
+    "Headline": "お知らせ"
+  },
+  "Links": {
+    "Headline": "リンク集"
   }
 }
