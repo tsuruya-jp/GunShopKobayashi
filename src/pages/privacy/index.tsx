@@ -12,9 +12,6 @@ const Privacy = () => {
       <div className="w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]">
         <h1 className="title font-bold mb-14" suppressHydrationWarning={true}>{t("Privacy.Headline")}</h1>
         <div className="mb-10">
-          <p>小林銃砲火薬店（以下，「当社」といいます。）は，本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における，ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。</p>
-        </div>
-        <div className="mb-10">
           <h2 className="text-xl">個人情報の収集</h2>
           <p>業務上、法令等により個人情報を収集する義務が生じます。</p>
           <p>当サイトをご利用の際にも個人情報を収集することがあります。</p>
