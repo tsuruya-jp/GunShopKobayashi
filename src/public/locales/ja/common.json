@@ -71,7 +71,7 @@
       "ByCar": "●車でお越しの方",
       "CarInformation": "名神高速道路　京都南ICより25分",
       "ByTrain": "●電車でお越しの方",
-      "TrainInformation": "JR嵯峨野・山陰線「二条駅」より徒歩15分"
+      "TrainInformation": "JR嵯峨野・山陰線「二条駅」より徒歩12分"
     }
   },
   "News": {
@@ -85,5 +85,16 @@
   },
   "About": {
     "Headline": "会社概要"
+  },
+  "Contact": {
+    "Headline": "お問い合わせ",
+    "LastName": "姓",
+    "FirstName": "名",
+    "TelNumber": "電話番号",
+    "Email": "メールアドレス",
+    "Message": "お問い合わせ内容",
+    "Send": "送信",
+    "Success": "お問い合わせが送信されました",
+    "Failed": "お問い合わせを送信できませんでした"
   }
 }
