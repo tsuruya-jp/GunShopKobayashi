@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import Header from "@/components/layouts/header/Header";
@@ -140,7 +140,7 @@ const Index = ({ data }: NewsArticle) => {
 
 export default Index;
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
   try {
     const data = await listNews(5, 0);
