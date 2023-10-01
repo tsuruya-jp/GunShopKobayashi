@@ -56,7 +56,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -76,5 +76,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       news: news,
       ...translations,
     },
+    revalidate: 60,
   };
 };
