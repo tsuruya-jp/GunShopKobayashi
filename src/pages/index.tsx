@@ -10,6 +10,7 @@ import Map from "@/features/map/components/Map";
 import RealProperty from "@/components/elements/realProperty/RealProperty";
 import Slider from "@/features/slider/components/Slider";
 import listNews from "@/features/news/api/list";
+import Meta from "@/components/layouts/meta/Meta";
 
 type ProductCardProps = {
   assortment: string;
@@ -36,6 +37,7 @@ const Index = ({ data }: NewsArticle) => {
   ];
   return (
     <>
+      <Meta pageTitle={t("Common.Title")} pageDesc="" pageType="website" pageIcon=""/>
       <Header />
       <main className="">
         <div className="mb-16 md:mb-32">
