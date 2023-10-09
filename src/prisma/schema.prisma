@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,29 +9,33 @@ datasource db {
 
 model News {
   id        String   @id
-  createdAt DateTime
-  updatedAt DateTime
+  createdAt DateTime @db.Timestamp(6)
+  updatedAt DateTime @db.Timestamp(6)
   title     String   @db.VarChar(255)
-  content   Json
-  public    Boolean 
+  content   Json?
+  public    Boolean
 }
 
 model Product {
-  id           String  @id
-  type         String  @db.VarChar(255) 
-  caliber      String
-  manufacturer String
-  model        String
-  barrelLength Decimal
-  weight       Decimal
-  pull         Decimal
-  condition    String
-  remarks      String
+  id           String   @id @db.VarChar(32)
+  name         String   @db.VarChar(64)
+  price        String   @db.VarChar(32)
+  image        String   @db.VarChar(64)
+  images       Json?
+  type         String   @db.VarChar(32)
+  caliber      String   @db.VarChar(32)
+  manufacturer String   @db.VarChar(64)
+  model        String   @db.VarChar(32)
+  barrelLength Decimal?
+  weight       Decimal?
+  pull         Decimal?
+  condition    String   @db.VarChar(32)
+  remarks      String?  @db.VarChar(256)
 }
 
 model User {
-  id       String   @id
-  username String   @unique
+  id       String @id
+  username String @unique
   email    String
   password String
 }
