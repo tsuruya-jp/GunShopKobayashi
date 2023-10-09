@@ -11,6 +11,7 @@ import RealProperty from "@/components/elements/realProperty/RealProperty";
 import Slider from "@/features/slider/components/Slider";
 import listNews from "@/features/news/api/list";
 import Meta from "@/components/layouts/meta/Meta";
+import Link from "next/link";
 
 type ProductCardProps = {
   assortment: string;
@@ -45,9 +46,11 @@ const Index = ({ data }: NewsArticle) => {
         </div>
         <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">
           <p className="mb-5 text-3xl">{t("Top.Headline.Product")}</p>
-          <div className="w-fit mb-10 py-3 px-7 text-xs bg-gray-200">
-            {t("Top.Product.ViewAllGuns")}
-          </div>
+          <Link href={`/product/`}>
+            <div className="w-fit mb-10 py-3 px-7 text-xs bg-gray-200">
+              {t("Top.Product.ViewAllGuns")}
+            </div>
+          </Link>
           <div className="md:flex justify-between">
             <ProductCard assortment="NewGuns" />
             <ProductCard assortment="OldGuns" />
