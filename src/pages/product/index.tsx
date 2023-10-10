@@ -7,17 +7,27 @@ import { useTranslation } from "react-i18next";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import Link from "next/link";
 
 export const ProductList = ({ products }: { products: ProductData[] }) => {
   const productsList = products.map(v => {
     return (
       <div className="" key={v.id}>
         <div className="border border-[#AAA] mb-4">
-          <Image src={`/${v.image}`} alt="" />
+          <Link href={`product/${v.name}`}>
+            <Image src={`/${v.image}`} alt="" />
+          </Link>
         </div>
         <div className="ml-2 mb-16">
-          <p className="text-xl">{v.name}</p>
-          <p className="text-3xl">{`¥${v.price}`}</p>
+          <Link href={`product/${v.name}`}>
+            <p className="text-xl">{v.name}</p>
+          </Link>
+          <Link href={`product/${v.name}`}>
+            <div className="flex items-baseline">
+              <p className="text-3xl mr-1">{`¥ ${Number(v.price).toLocaleString()}`}</p>
+              <p className="text-xs">(税込)</p>
+            </div>
+          </Link>
         </div>
       </div>
     )
@@ -51,7 +61,7 @@ const ProductPage = ({data}: {data: ProductData[]}) => {
                 <div className="w-4/5 border border-[#AAA] mx-auto"></div>
                 <div className="w-4/5 mx-auto mt-3 mb-5 [&_span]:text-xs">
                   <div className="text-left">
-                    <FormControlLabel control={<Checkbox />} label="狩猟中" />
+                    <FormControlLabel control={<Checkbox />} label="狩猟銃" />
                   </div>
                   <div className="text-left">
                   <FormControlLabel control={<Checkbox />} label="クレー射撃銃" />

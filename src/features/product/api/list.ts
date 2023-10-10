@@ -1,11 +1,10 @@
 import { prisma } from "@/lib/prisma";
 
-const listProducts = async (take?: number, skip?: number) => {
-  const quantity = take !== 0 ? take : undefined;
-  const point = skip !== 0 ? skip : undefined;
+const listProducts = async () => {
   const result = await prisma.product.findMany({
-    take: quantity,
-    skip: point,
+    orderBy: {
+      sequence: "asc"
+    }
   });
 
   return result;

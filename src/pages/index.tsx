@@ -42,7 +42,7 @@ const Index = ({ data }: NewsArticle) => {
       <Header />
       <main className="">
         <div className="mb-16 md:mb-32">
-          <Slider items={items} />
+          <Slider items={items} top={true} />
         </div>
         <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">
           <p className="mb-5 text-3xl">{t("Top.Headline.Product")}</p>

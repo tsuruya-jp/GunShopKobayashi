@@ -8,9 +8,11 @@ import "swiper/css/effect-fade";
 
 type SliderProps = {
   items: SlideItem[];
+  top: boolean;
 };
 
-const Slider = ({ items }: SliderProps) => {
+const Slider = ({ items, top }: SliderProps) => {
+  const classes = top ? "md:!w-[90%] lg:!w-4/5" : "";
   return (
     <Swiper
       modules={[Autoplay, Pagination]}
@@ -26,7 +28,7 @@ const Slider = ({ items }: SliderProps) => {
       }}
     >
       {items.map((v) => (
-        <SwiperSlide key={v.id} className="md:!w-[90%] lg:!w-4/5">
+        <SwiperSlide key={v.id} className={classes}>
           <Image src={v.content} alt={""} />
         </SwiperSlide>
       ))}

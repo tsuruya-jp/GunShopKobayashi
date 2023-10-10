@@ -76,3 +76,7 @@
     bottom: 0px;
   }
 }
+
+.product-detail {
+  @apply w-full border-collapse [&_th]:border-2 [&_th]:border-[#999] [&_th]:text-white [&_th]:py-3 [&_th]:bg-blue-900 [&_td]:border-2 [&_td]:border-[#AAA] [&_td]:pl-8 mb-16;
+}

@@ -18,19 +18,21 @@ model News {
 
 model Product {
   id           String   @id @db.VarChar(32)
-  name         String   @db.VarChar(64)
-  price        String   @db.VarChar(32)
+  name         String   @unique @db.VarChar(64)
+  price        Int
   image        String   @db.VarChar(64)
   images       Json?
-  type         String   @db.VarChar(32)
+  type         Int
   caliber      String   @db.VarChar(32)
   manufacturer String   @db.VarChar(64)
   model        String   @db.VarChar(32)
   barrelLength Decimal?
   weight       Decimal?
   pull         Decimal?
-  condition    String   @db.VarChar(32)
-  remarks      String?  @db.VarChar(256)
+  condition    Int
+  remarks      String?  @db.VarChar
+  sequence     Int?
+  description  String?  @db.VarChar
 }
 
 model User {
