@@ -18,6 +18,8 @@ const createUser = async (req: ProductData) => {
       pull: req.pull ?? null,
       condition: req.condition,
       remarks: req.remarks ?? null,
+      sequence: req.sequence ?? null,
+      description: req.description ?? null
     },
   });
 

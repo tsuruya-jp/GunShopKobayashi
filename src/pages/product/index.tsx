@@ -8,9 +8,10 @@ import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export const ProductList = ({ products }: { products: ProductData[] }) => {
-  const productsList = products.map(v => {
+  const productsList = products.map((v) => {
     return (
       <div className="" key={v.id}>
         <div className="border border-[#AAA] mb-4">
@@ -30,15 +31,39 @@ export const ProductList = ({ products }: { products: ProductData[] }) => {
           </Link>
         </div>
       </div>
-    )
+    );
   });
-  return(
-    <>{productsList}</>
-  );
-}
+  return <>{productsList}</>;
+};
 
-const ProductPage = ({data}: {data: ProductData[]}) => {
+const checkItem = [false, false, false, false, false, false];
+
+const ProductPage = ({ data }: { data: ProductData[] }) => {
   const { t } = useTranslation("common");
+  const [checked, setChecked] = useState(checkItem);
+  const [items, setItems] = useState(data);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch("/api/product/list", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-cache",
+        body: JSON.stringify({ condition: checked }),
+      });
+      const items = await data.json();
+      setItems(items.data);
+    };
+    fetchData();
+  }, [checked]);
+
+  const change = (index: number): any => {
+    const newChecked = checked.map((v, i) => (i === index ? !v : v));
+    setChecked(newChecked);
+  };
+
   return (
     <>
       <Meta pageTitle={t("Common.Title")} pageDesc="" pageType="website" pageIcon="" />
@@ -55,28 +80,46 @@ const ProductPage = ({data}: {data: ProductData[]}) => {
                   <p>カテゴリーから探す</p>
                 </div>
                 <div className="w-4/5 grid grid-cols-2 mx-auto mt-5 mb-3 [&_span]:text-xs">
-                  <FormControlLabel control={<Checkbox />} label="新銃" />
-                  <FormControlLabel control={<Checkbox />} label="中古銃" />
+                  <FormControlLabel
+                    control={<Checkbox checked={checked[0]} onClick={() => change(0)} />}
+                    label="新銃"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={checked[1]} onClick={() => change(1)} />}
+                    label="中古銃"
+                  />
                 </div>
                 <div className="w-4/5 border border-[#AAA] mx-auto"></div>
                 <div className="w-4/5 mx-auto mt-3 mb-5 [&_span]:text-xs">
                   <div className="text-left">
-                    <FormControlLabel control={<Checkbox />} label="狩猟銃" />
+                    <FormControlLabel
+                      control={<Checkbox checked={checked[2]} onClick={() => change(2)} />}
+                      label="狩猟銃"
+                    />
                   </div>
                   <div className="text-left">
-                  <FormControlLabel control={<Checkbox />} label="クレー射撃銃" />
+                    <FormControlLabel
+                      control={<Checkbox checked={checked[3]} onClick={() => change(3)} />}
+                      label="クレー射撃銃"
+                    />
                   </div>
                   <div className="text-left">
-                  <FormControlLabel control={<Checkbox />} label="ライフル銃" />
+                    <FormControlLabel
+                      control={<Checkbox checked={checked[4]} onClick={() => change(4)} />}
+                      label="ライフル銃"
+                    />
                   </div>
                   <div className="text-left">
-                  <FormControlLabel control={<Checkbox />} label="エアライフル" />
+                    <FormControlLabel
+                      control={<Checkbox checked={checked[5]} onClick={() => change(5)} />}
+                      label="エアライフル"
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div className="w-full flex-1">
-              <ProductList products={data} />
+              <ProductList products={items} />
             </div>
           </div>
         </div>
@@ -90,7 +133,7 @@ export default ProductPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
-  const data = await listProducts();
+  const data = await listProducts(checkItem);
   const product: ProductData[] = await JSON.parse(JSON.stringify(data));
   try {
     return {

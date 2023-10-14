@@ -22,6 +22,8 @@ const execute = async(
       pull: req.body.pull,
       condition: req.body.condition,
       remarks: req.body.remarks,
+      sequence: req.body.sequence,
+      description: req.body.description,
     }
     const response = await create(data);
     res.status(200).end()

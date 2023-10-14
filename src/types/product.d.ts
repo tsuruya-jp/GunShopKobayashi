@@ -13,5 +13,6 @@ type ProductData = {
   pull: Decimal;
   condition: number;
   remarks: string;
+  sequence: number;
   description: string;
 };
