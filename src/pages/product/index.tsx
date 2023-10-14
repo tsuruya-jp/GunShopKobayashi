@@ -36,8 +36,7 @@ export const ProductList = ({ products }: { products: ProductData[] }) => {
   return <>{productsList}</>;
 };
 
-
-const ProductPage = ({ data, checkItem }: { data: ProductData[], checkItem: boolean[] }) => {
+const ProductPage = ({ data, checkItem }: { data: ProductData[]; checkItem: boolean[] }) => {
   const { t } = useTranslation("common");
   const [checked, setChecked] = useState(checkItem);
   const [items, setItems] = useState(data);
@@ -72,8 +71,8 @@ const ProductPage = ({ data, checkItem }: { data: ProductData[], checkItem: bool
           <h1 className="title font-bold mb-14" suppressHydrationWarning={true}>
             {t("Product.Headline")}
           </h1>
-          <div className="flex flex-wrap">
-            <div className="mr-5">
+          <div className="md:flex flex-wrap">
+            <div className="mb-8 md:mr-5">
               <div className="w-full lg:w-[220px] top-8 sticky text-center border-4 rounded-lg border-[#AAA]">
                 <div className="py-5 border-b-2 border-[#AAA]">
                   <p>カテゴリーから探す</p>
@@ -89,31 +88,23 @@ const ProductPage = ({ data, checkItem }: { data: ProductData[], checkItem: bool
                   />
                 </div>
                 <div className="w-4/5 border border-[#AAA] mx-auto"></div>
-                <div className="w-4/5 mx-auto mt-3 mb-5 [&_span]:text-xs">
-                  <div className="text-left">
-                    <FormControlLabel
-                      control={<Checkbox checked={checked[2]} onClick={() => change(2)} />}
-                      label="狩猟銃"
-                    />
-                  </div>
-                  <div className="text-left">
-                    <FormControlLabel
-                      control={<Checkbox checked={checked[3]} onClick={() => change(3)} />}
-                      label="クレー射撃銃"
-                    />
-                  </div>
-                  <div className="text-left">
-                    <FormControlLabel
-                      control={<Checkbox checked={checked[4]} onClick={() => change(4)} />}
-                      label="ライフル銃"
-                    />
-                  </div>
-                  <div className="text-left">
-                    <FormControlLabel
-                      control={<Checkbox checked={checked[5]} onClick={() => change(5)} />}
-                      label="エアライフル"
-                    />
-                  </div>
+                <div className="w-4/5 grid grid-cols-2 md:grid-cols-1 md:grid-rows-4 mx-auto mt-3 mb-5 [&_span]:text-xs">
+                  <FormControlLabel
+                    control={<Checkbox checked={checked[2]} onClick={() => change(2)} />}
+                    label="狩猟銃"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={checked[3]} onClick={() => change(3)} />}
+                    label="クレー射撃銃"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={checked[4]} onClick={() => change(4)} />}
+                    label="ライフル銃"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={checked[5]} onClick={() => change(5)} />}
+                    label="エアライフル"
+                  />
                 </div>
               </div>
             </div>
