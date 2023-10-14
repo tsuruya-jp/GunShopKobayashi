@@ -15,15 +15,16 @@ import Link from "next/link";
 
 type ProductCardProps = {
   assortment: string;
+  url: string;
 };
 
-export const ProductCard = ({ assortment }: ProductCardProps) => {
+export const ProductCard = ({ assortment, url }: ProductCardProps) => {
   const { t } = useTranslation("common");
   return (
     <div className="md:w-[31.8%] h-[220px] md:h-[380px] lg:h-[520px] pt-12 md:pt-24 lg:pt-36 mb-6 md:mb-0 bg-gray-400 text-center">
       <div className="text-3xl">{t(`Top.Product.${assortment}`)}</div>
       <div className="mb-8 md:mb-32 text-xs">{t(`Top.Product.En${assortment}`)}</div>
-      <Button />
+      <Button url={url} />
     </div>
   );
 };
@@ -52,9 +53,9 @@ const Index = ({ data }: NewsArticle) => {
             </div>
           </Link>
           <div className="md:flex justify-between">
-            <ProductCard assortment="NewGuns" />
-            <ProductCard assortment="OldGuns" />
-            <ProductCard assortment="OnlineStore" />
+            <ProductCard assortment="NewGuns" url="product?condition=0" />
+            <ProductCard assortment="OldGuns" url="product?condition=1" />
+            <ProductCard assortment="OnlineStore" url="" />
           </div>
         </div>
         <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">

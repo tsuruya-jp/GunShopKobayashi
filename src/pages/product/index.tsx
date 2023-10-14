@@ -36,9 +36,8 @@ export const ProductList = ({ products }: { products: ProductData[] }) => {
   return <>{productsList}</>;
 };
 
-const checkItem = [false, false, false, false, false, false];
 
-const ProductPage = ({ data }: { data: ProductData[] }) => {
+const ProductPage = ({ data, checkItem }: { data: ProductData[], checkItem: boolean[] }) => {
   const { t } = useTranslation("common");
   const [checked, setChecked] = useState(checkItem);
   const [items, setItems] = useState(data);
@@ -131,14 +130,27 @@ const ProductPage = ({ data }: { data: ProductData[] }) => {
 
 export default ProductPage;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
+  const checkItem = [false, false, false, false, false, false];
   const translations = await serverSideTranslations(locale!, ["common"]);
+  const queryString = query.condition ?? undefined;
+  if (queryString) {
+    switch (Number(queryString)) {
+      case 0:
+        checkItem[0] = true;
+        break;
+      case 1:
+        checkItem[1] = true;
+        break;
+    }
+  }
   const data = await listProducts(checkItem);
   const product: ProductData[] = await JSON.parse(JSON.stringify(data));
   try {
     return {
       props: {
         data: product,
+        checkItem: checkItem,
         ...translations,
       },
     };
