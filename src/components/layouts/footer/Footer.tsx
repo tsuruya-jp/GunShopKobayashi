@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next";
 const Footer = () => {
   const { t } = useTranslation("common");
   return (
-    <footer className="md:h-[360px] bg-[#666] [&_p]:text-white [&_a]:text-white [&_p]:text-xs md:[&_p]:text-base [&_a]:text-xs md:[&_a]:text-base">
+    <footer className="md:h-[360px] bg-[#3F5D75] [&_p]:text-[#DFB94A] [&_a]:text-[#DFB94A] [&_p]:text-xs md:[&_p]:text-base [&_a]:text-xs md:[&_a]:text-base">
       <div className="pt-6 md:pt-10 md:flex">
         <div className="md:w-1/4 my-auto">
           <div className="flex justify-center">logo</div>
@@ -38,13 +38,13 @@ const Footer = () => {
                 <Link href="/">{t("Footer.ProductList")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <Link href="/">{t("Footer.NewGuns")}</Link>
+                <Link href="/product?condition=0">{t("Footer.NewGuns")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <Link href="/">{t("Footer.OldGuns")}</Link>
+                <Link href="/product?condition=1">{t("Footer.OldGuns")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <Link href="/">{t("Footer.OnlineStore")}</Link>
+                <Link href="https://kobayashi-guns.raku-uru.jp/">{t("Footer.OnlineStore")}</Link>
               </div>
             </div>
             <div className="w-[30%]">

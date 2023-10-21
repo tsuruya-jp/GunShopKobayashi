@@ -1,5 +1,5 @@
 .a {
-  color: #000;
+  color: #DFB94A;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -7,12 +7,12 @@
   outline: none;
   border-radius: 5px;
   border: none;
-  background: #ddd;
-  box-shadow: 0 5px #666;
+  background: #39576F;
+  box-shadow: 0 5px #DFB94A;
   transition: 0.3s;
 }
 .a:hover {
-  box-shadow: 0 3px #666;
+  box-shadow: 0 3px #DFB94A;
   transform: translate(0, 2px);
 }
 .a:active {

@@ -7,7 +7,6 @@ import Button from "@/components/elements/button/Button";
 import Image from "@/components/elements/image/Image";
 import { NewsArticle } from "@/features/news/components/NewsArticle";
 import Map from "@/features/map/components/Map";
-import RealProperty from "@/components/elements/realProperty/RealProperty";
 import Slider from "@/features/slider/components/Slider";
 import listNews from "@/features/news/api/list";
 import Meta from "@/components/layouts/meta/Meta";
@@ -21,8 +20,8 @@ type ProductCardProps = {
 export const ProductCard = ({ assortment, url }: ProductCardProps) => {
   const { t } = useTranslation("common");
   return (
-    <div className="md:w-[31.8%] h-[220px] md:h-[380px] lg:h-[520px] pt-12 md:pt-24 lg:pt-36 mb-6 md:mb-0 bg-gray-400 text-center">
-      <div className="text-3xl">{t(`Top.Product.${assortment}`)}</div>
+    <div className="md:w-[31.8%] h-[220px] md:h-[380px] lg:h-[480px] rounded-md pt-12 md:pt-24 lg:pt-36 mb-6 md:mb-0 bg-gradient-to-br from-gray-100  to-gray-700 shadow-lg text-center">
+      <div className="text-3xl font-extrabold">{t(`Top.Product.${assortment}`)}</div>
       <div className="mb-8 md:mb-32 text-xs">{t(`Top.Product.En${assortment}`)}</div>
       <Button url={url} />
     </div>
@@ -39,29 +38,31 @@ const Index = ({ data }: NewsArticle) => {
   ];
   return (
     <>
-      <Meta pageTitle={t("Common.Title")} pageDesc="" pageType="website" pageIcon=""/>
+      <Meta pageTitle={t("Common.Title")} pageDesc="" pageType="website" pageIcon="" />
       <Header />
       <main className="">
-        <div className="mb-16 md:mb-32">
+        <div className="mb-16 md:mb-32 lg:mb-80">
           <Slider items={items} top={true} />
         </div>
-        <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">
+        <div className="w-[90%] mb-32 md:mb-44 lg:mb-64 mx-auto">
           <p className="mb-5 text-3xl">{t("Top.Headline.Product")}</p>
-          <Link href={`/product/`}>
-            <div className="w-fit mb-10 py-3 px-7 text-xs bg-gray-200">
+          <Link href={"/product/"}>
+            <div className="w-fit mb-10 py-3 px-7 rounded bg-[#3F5D75] text-[#DFB94A]">
               {t("Top.Product.ViewAllGuns")}
             </div>
           </Link>
           <div className="md:flex justify-between">
-            <ProductCard assortment="NewGuns" url="product?condition=0" />
-            <ProductCard assortment="OldGuns" url="product?condition=1" />
-            <ProductCard assortment="OnlineStore" url="" />
+            <ProductCard assortment="NewGuns" url="/product?condition=0" />
+            <ProductCard assortment="OldGuns" url="/product?condition=1" />
+            <ProductCard assortment="OnlineStore" url="https://kobayashi-guns.raku-uru.jp/" />
           </div>
         </div>
-        <div className="w-[90%] mb-44 md:mb-64 lg:mb-80 mx-auto">
-          <p className="mb-10 md:mb-16 text-3xl">{t("Top.Headline.News")}</p>
-          <NewsArticle data={data} />
-          <Button url="news" />
+        <div className="bg-gray-200 py-64 mb-32 md:mb-44 lg:mb-64">
+          <div className="w-[90%] mx-auto">
+            <p className="mb-10 md:mb-16 text-3xl">{t("Top.Headline.News")}</p>
+            <NewsArticle data={data} />
+            <Button url="/news" />
+          </div>
         </div>
         <div className="image-component">
           <div className="flex-component ml-auto">
@@ -76,33 +77,38 @@ const Index = ({ data }: NewsArticle) => {
             </div>
           </div>
         </div>
-        <div className="image-component">
-          <div className="flex-component flex-row-reverse mr-auto">
-            <div className="description px-4 md:pr-0 md:pl-[46px] md:mr-5 lg:mr-8 mb-12">
-              <p className="md:text-right headline-2">{t("Top.Headline.HetakusoClub")}</p>
-              <div className="mb-4 md:mb-16 whitespace-pre-wrap">
-                {t("Top.HetakusoClub.Description")}
-              </div>
-              <Button label={t("Top.HetakusoClub.Article")} />
+        <div className="bg-gray-200 py-10 md:py-20 lg:py-40 mb-32 md:mb-44 lg:mb-64">
+          <div className="md:w-2/3 lg:w-1/2 mx-auto">
+            <div className="relative m-20">
+              <Link href={"http://shotgunfun.blog.fc2.com/"}>
+                <Image src="/hetakusoclub.png" alt="ヘタクソクラブ" />
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 border-4 rounded text-xl text-white">
+                  ヘタクソクラブ
+                </div>
+              </Link>
             </div>
-            <div className="flex-image">
-              <Image src="/about.png" alt="" />
+          </div>
+          <div className="md:w-2/3 lg:w-1/2 mx-auto">
+            <div className="relative m-20">
+              <Link href={"https://www.facebook.com/kobayashiguns"}>
+                <Image src="/annex.png" alt="京のてっぽうやAnnex" />
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 border-4 rounded text-xl text-white">
+                  京のてっぽうやAnnex
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="md:w-2/3 lg:w-1/2 mx-auto">
+            <div className="relative m-20">
+              <Link href={"/real_property"}>
+                <Image src="/realproperty.png" alt="小林不動産" />
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 border-4 rounded text-xl text-white">
+                  小林不動産
+                </div>
+              </Link>
             </div>
           </div>
         </div>
-        <div className="image-component">
-          <div className="flex-component ml-auto">
-            <div className="description px-4 ml-0 md:pr-[46px] md:ml-5 lg:ml-8 mb-12">
-              <p className="headline-2">{t("Top.Headline.Annex")}</p>
-              <div className="mb-4 md:mb-16 whitespace-pre-wrap">{t("Top.Annex.Description")}</div>
-              <Button label={t("Top.Annex.Article")} />
-            </div>
-            <div className="flex-image">
-              <Image src="/about.png" alt="" />
-            </div>
-          </div>
-        </div>
-        <RealProperty />
         <div className="mb-16">
           <p className="w-[90%] mx-auto mb-10 text-3xl">{t("Top.Headline.StoreLocations")}</p>
           <div className="flex-component">
@@ -119,13 +125,13 @@ const Index = ({ data }: NewsArticle) => {
               </div>
               <div className="mb-8 parent">
                 <div className="flex mb-3">
-                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">
+                  <p className="w-[86px] rounded text-center bg-[#3F5D75] text-[#DFB94A] py-1 mr-3">
                     {t("Top.StoreLocations.BusinessHours")}
                   </p>
                   <p className="py-1">{t("Top.StoreLocations.Hours")}</p>
                 </div>
                 <div className="flex">
-                  <p className="w-[86px] text-center bg-gray-300 py-1 mr-3">
+                  <p className="w-[86px] rounded text-center bg-[#3F5D75] text-[#DFB94A] py-1 mr-3">
                     {t("Top.StoreLocations.RegureClosingDay")}
                   </p>
                   <p className="py-1">{t("Top.StoreLocations.Days")}</p>
@@ -150,7 +156,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await serverSideTranslations(locale!, ["common"]);
   try {
     const data = await listNews(5, 0);
-    const news:NewsData[] = await JSON.parse(JSON.stringify(data));
+    const news: NewsData[] = await JSON.parse(JSON.stringify(data));
     return {
       props: {
         data: news,

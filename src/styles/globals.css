@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&family=Noto+Serif+JP&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   div, p {
-    @apply font-noto text-gray-800;
+    @apply font-sans text-[#2b475c];
   }
 }
 

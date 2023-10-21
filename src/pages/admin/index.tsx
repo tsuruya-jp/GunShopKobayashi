@@ -15,8 +15,8 @@ const Admin = ({ pageProps }: AppProps) => {
 
   return (
     <div className={`h-screen flex duration-300 ${isSidebar ? "pl-[250px]" : ""}`}>
-      <Sidebar disabled={isSidebar} />
       <SessionProvider session={pageProps}>
+        <Sidebar disabled={isSidebar} />
         <Content changeSidebar={changeSidebar} />
       </SessionProvider>
     </div>
