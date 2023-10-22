@@ -73,7 +73,7 @@ const Index = ({ data }: NewsArticle) => {
               </div>
             </div>
             <div className="flex-image">
-              <Image src="/about.png" alt="" />
+              <Image src="/aboutus.png" alt="" />
             </div>
           </div>
         </div>
@@ -138,9 +138,9 @@ const Index = ({ data }: NewsArticle) => {
                 </div>
               </div>
               <p className="mb-1">{t("Top.StoreLocations.ByCar")}</p>
-              <p className="mb-3">{t("Top.StoreLocations.CarInformation")}</p>
+              <p className="mb-3 whitespace-pre-wrap">{t("Top.StoreLocations.CarInformation")}</p>
               <p className="mb-1">{t("Top.StoreLocations.ByTrain")}</p>
-              <p>{t("Top.StoreLocations.TrainInformation")}</p>
+              <p className="whitespace-pre-wrap">{t("Top.StoreLocations.TrainInformation")}</p>
             </div>
           </div>
         </div>

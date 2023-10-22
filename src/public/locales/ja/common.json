@@ -4,7 +4,8 @@
   },
   "Header": {
     "ProductList": "商品一覧",
-    "ShopInfomation": "店舗案内",
+    "AboutUs": "会社概要",
+    "News": "お知らせ",
     "Contact": "お問い合わせ"
   },
   "Footer": {
@@ -69,9 +70,9 @@
       "RegureClosingDay": "定休日",
       "Days": "日曜日, 祝日, 第4木曜日",
       "ByCar": "●車でお越しの方",
-      "CarInformation": "名神高速道路　京都南ICより25分",
+      "CarInformation": "名神高速道路 京都南ICより25分\n駐車場 5台",
       "ByTrain": "●電車でお越しの方",
-      "TrainInformation": "JR嵯峨野・山陰線「二条駅」より徒歩12分\n京都市営地下鉄　東西線　「二条駅」より徒歩12分"
+      "TrainInformation": "JR嵯峨野・山陰線「二条駅」より徒歩12分\n京都市営地下鉄・東西線「二条駅」より徒歩12分"
     }
   },
   "News": {

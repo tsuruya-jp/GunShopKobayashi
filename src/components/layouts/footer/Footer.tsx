@@ -13,9 +13,10 @@ const Footer = () => {
           <div className="w-fit mx-auto">
             <p className="md:mt-8 text-xs md:text-base">TEL : 075-841-8866</p>
             <p className="text-xs md:text-base">E-mail : xxxxx@xxx.co.jp</p>
-            <div className="mt-1 md:mt-7 pb-3 md:pb-0">
-              <Icon className="absolute z-50" path={mdiFacebook} size={1} color={"blue"} />
-              <div className="w-4 h-4 relative top-1 left-1 rounded-[50%] overflow-hidden bg-white"></div>
+            <div className="mt-1 md:mt-7 pb-3 md:pb-0 w-fit">
+              <Link href="https://www.facebook.com/kobayashiguns">
+                <Icon className="" path={mdiFacebook} size={1} color={"white"} />
+              </Link>
             </div>
           </div>
         </div>
