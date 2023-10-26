@@ -8,7 +8,7 @@ const Login = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSidePr
   const userName = useRef("");
   const password = useRef("");
   const onSubmit = async () => {
-    const result = await signIn("credentials", {
+    await signIn("credentials", {
       username: userName.current,
       password: password.current,
       redirect: true,
@@ -73,12 +73,12 @@ export const getServerSideProps: GetServerSideProps = async (
   const session = await getSession(context);
   if (session) {
     return {
-      props: {
-        csrfToken: await getCsrfToken(context),
-      },
       redirect: {
         destination: "/admin",
         permanent: false,
+      },
+      props: {
+        csrfToken: await getCsrfToken(context),
       },
     };
   }

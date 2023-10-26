@@ -1,17 +1,15 @@
 import Icon from '@mdi/react';
 import { mdiLogout, mdiMenu } from '@mdi/js';
 import { signOut, useSession } from 'next-auth/react';
-import dynamic from 'next/dynamic';
+import { ReactNode } from 'react';
 
-const TextEditor = dynamic(import('../../../../features/editor/TextEditor'), { ssr: false });
-
-const Content = (props: any) => {
+const Content = ({ children, change }: { children: ReactNode, change: () => void}) => {
   const { data: session } = useSession();
   return (
     <div className='w-full bg-gray-100'>
       <header className='pt-5 px-6 flex justify-between'>
         <div className='my-auto'>
-          <button className='py-1 px-2 w-fit rounded hover:bg-slate-200' onClick={() => props.changeSidebar()}>
+          <button className='py-1 px-2 w-fit rounded hover:bg-slate-200' onClick={() => change()}>
             <Icon path={mdiMenu} size={1} />
           </button>
         </div>
@@ -27,7 +25,7 @@ const Content = (props: any) => {
         </div>
       </header>
       <main className='p-6'>
-        <TextEditor />
+        { children }
       </main>
     </div>
   );
