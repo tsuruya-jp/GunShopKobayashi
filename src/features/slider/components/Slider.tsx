@@ -1,3 +1,4 @@
+"use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import Image from "@/components/elements/image/Image";
@@ -17,7 +18,7 @@ const Slider = ({ items, top }: SliderProps) => {
     <Swiper
       modules={[Autoplay, Pagination]}
       loop={true}
-      slidesPerView={'auto'}
+      slidesPerView={"auto"}
       centeredSlides={true}
       autoplay={{
         delay: 5000,
@@ -37,4 +38,3 @@ const Slider = ({ items, top }: SliderProps) => {
 };
 
 export default Slider;
-

@@ -1,7 +1,15 @@
 import { format } from "date-fns";
 import Link from "next/link";
+import listNews from "../api/list";
 
-export const NewsArticle = ({ data }: NewsArticle) => {
+const getData = async () => {
+  const data = await listNews(5, 0);
+  const news: NewsData[] = await JSON.parse(JSON.stringify(data));
+  return news;
+};
+
+export const NewsArticle = async () => {
+  const data = await getData();
   const newsList = data.map((v: NewsData) => {
     const date = format(new Date(v.createdAt), "yyyy-MM-dd");
     const permalink = String(date + "_" + v.title);

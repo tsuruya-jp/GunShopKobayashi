@@ -1,10 +1,12 @@
+"use client"
+
 import Icon from "@mdi/react";
 import Link from "next/link";
 import { mdiFacebook } from "@mdi/js";
-import { useTranslation } from "next-i18next";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
-  const { t } = useTranslation("common");
+  const t = useTranslations("Footer");
   return (
     <footer className="md:h-[360px] bg-[#3F5D75] [&_p]:text-[#DFB94A] [&_a]:text-[#DFB94A] [&_p]:text-xs md:[&_p]:text-base [&_a]:text-xs md:[&_a]:text-base">
       <div className="pt-6 md:pt-10 md:flex">
@@ -25,44 +27,44 @@ const Footer = () => {
           <div className="w-[90%] mx-auto flex justify-between mb-20">
             <div className="w-[30%]">
               <div className="after-line">
-                <Link href="/">{t("Footer.Home")}</Link>
+                <Link href="/">{t("Home")}</Link>
               </div>
               <div className="after-line pt-4">
-                <Link href="/news">{t("Footer.News")}</Link>
+                <Link href="/news">{t("News")}</Link>
               </div>
               <div className="pt-4">
-                <Link href="/about">{t("Footer.AboutUs")}</Link>
+                <Link href="/about">{t("AboutUs")}</Link>
               </div>
             </div>
             <div className="w-[30%]">
               <div className="">
-                <Link href="/">{t("Footer.ProductList")}</Link>
+                <Link href="/">{t("ProductList")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <Link href="/product?condition=0">{t("Footer.NewGuns")}</Link>
+                <Link href="/product?condition=0">{t("NewGuns")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <Link href="/product?condition=1">{t("Footer.OldGuns")}</Link>
+                <Link href="/product?condition=1">{t("OldGuns")}</Link>
               </div>
               <div className="pl-5 pt-4">
-                <Link href="https://kobayashi-guns.raku-uru.jp/">{t("Footer.OnlineStore")}</Link>
+                <Link href="https://kobayashi-guns.raku-uru.jp/">{t("OnlineStore")}</Link>
               </div>
             </div>
             <div className="w-[30%]">
               <div className="after-line">
-                <Link href="/contact">{t("Footer.Contact")}</Link>
+                <Link href="/contact">{t("Contact")}</Link>
               </div>
               <div className="after-line pt-4">
-                <Link href="/links">{t("Footer.Links")}</Link>
+                <Link href="/links">{t("Links")}</Link>
               </div>
               <div className="pt-4">
-                <Link href="/privacy">{t("Footer.PrivacyPolicy")}</Link>
+                <Link href="/privacy">{t("PrivacyPolicy")}</Link>
               </div>
             </div>
           </div>
-          <p className="text-center">{t("Footer.CopyRight")}</p>
+          <p className="text-center">{t("CopyRight")}</p>
         </div>
-        <p className="text-center pt-4 pb-6 md:hidden">{t("Footer.CopyRight")}</p>
+        <p className="text-center pt-4 pb-6 md:hidden">{t("CopyRight")}</p>
       </div>
     </footer>
   );

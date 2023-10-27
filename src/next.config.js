@@ -1,13 +1,21 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
-};
-const { i18n } = require("./next-i18next.config");
+/**
+ * @type {import('next').NextConfig}
+ */
 
-module.exports = {
-  nextConfig,
-  i18n,
-};
+const nextConfig = {
+  trailingSlash: true,
+  reactStrictMode: true,
+  swcMinify: true,
+  experimental: {
+    appDir: true
+  }
+}
+
+const withNextIntl = require('next-intl/plugin')(
+  // This is the default (also the `src` folder is supported out of the box)
+  './i18n.ts'
+);
+
+module.exports = withNextIntl({
+  nextConfig
+})
