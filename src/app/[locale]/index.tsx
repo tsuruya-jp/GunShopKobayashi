@@ -22,7 +22,7 @@ export const ProductCard = ({ assortment, url }: ProductCardProps) => {
   );
 };
 
-const Index = async () => {
+const Index = () => {
   const t = useTranslations("Top");
   const items: SlideItem[] = [
     { id: 1, content: "/main1.png" },
