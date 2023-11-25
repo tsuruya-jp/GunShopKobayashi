@@ -2,7 +2,7 @@ import countNews from "@/features/news/api/count";
 import listNews from "@/features/news/api/list";
 import { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest)  {
+export const GET = async (req: NextRequest) => {
   const queryString = req.nextUrl.searchParams;
   const query = queryString.get("query") ?? "";
   const currentPage = () => {

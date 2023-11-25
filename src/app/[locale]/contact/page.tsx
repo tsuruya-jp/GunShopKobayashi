@@ -1,10 +1,9 @@
-import Footer from "@/components/layouts/footer/Footer";
-import Header from "@/components/layouts/header/Header";
+"use client"
+
 import Modal from "@/features/modal/components/Modal";
-import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 
 type FormInputs = {
   lastName: String;
@@ -15,7 +14,7 @@ type FormInputs = {
 };
 
 const Contact = () => {
-  const { t } = useTranslation("common");
+  const t = useTranslations();
   const [show, setShow] = useState(false);
   const [success, setSuccess] = useState(true);
   const {
@@ -54,7 +53,6 @@ const Contact = () => {
   return (
     <>
       <Modal show={show} success={success} changeModal={changeModal} />
-      <Header />
       <main className="w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]">
         <h1 className="title font-bold mb-16" suppressHydrationWarning={true}>
           {t("Contact.Headline")}
@@ -89,19 +87,6 @@ const Contact = () => {
             </div>
           </div>
           <div className="mb-6">
-            <div suppressHydrationWarning={true}>{t("Contact.TelNumber")}</div>
-            <input
-              type="tel"
-              className="w-full h-[50px] rounded-md bg-slate-300 p-4"
-              {...register("telNumber", {
-                required: "入力が必須の項目です",
-              })}
-            />
-            {errors.telNumber && (
-              <div className="text-red-500 pl-1 pt-1 text-xs">{errors.telNumber.message}</div>
-            )}
-          </div>
-          <div className="mb-6">
             <div suppressHydrationWarning={true}>{t("Contact.Email")}</div>
             <input
               type="email"
@@ -134,12 +119,11 @@ const Contact = () => {
             <input
               type="submit"
               value={t("Contact.Send")}
-              className="rounded-md bg-slate-300 py-1 px-4"
+              className="cursor-pointer rounded-md bg-slate-300 py-1 px-4"
             />
           </div>
         </form>
       </main>
-      <Footer />
     </>
   );
 };

@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { createTransport } from "nodemailer"
 
-const execute = async (req: NextApiRequest, res: NextApiResponse) => {
+export const POST = async (req: NextRequest, res: NextResponse) => {
   const transporter = createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -12,7 +12,7 @@ const execute = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   });
 
-  const mail = JSON.parse(req.body);
+  const mail = await req.json();
 
   await transporter.sendMail({
     from: `"Kobayashi Gun Shop" <no-reply@example.com>`,
@@ -30,9 +30,5 @@ const execute = async (req: NextApiRequest, res: NextApiResponse) => {
     `,
   })
 
-  res.status(200).json({
-    success: true
-  })
+  return new Response(JSON.stringify({}))
 }
-
-export default execute;
