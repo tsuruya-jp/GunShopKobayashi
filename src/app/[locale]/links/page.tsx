@@ -1,14 +1,10 @@
-import Footer from "@/components/layouts/footer/Footer";
-import Header from "@/components/layouts/header/Header";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { GetServerSideProps } from "next";
-import { useTranslation } from "react-i18next";
 
-const Links = () => {
-  const { t } = useTranslation("common");
+const Index = () => {
+  const t = useTranslations();
   return (
-    <>
-      <Header />
+    <main>
       <div className="w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px] [&_a]:underline [&_a]:decoration-2">
         <h1 className="title font-bold mb-14" suppressHydrationWarning={true}>{t("Links.Headline")}</h1>
         <h2 className="text-xl mb-6">●国内主要銃砲／装弾代理店</h2>
@@ -34,9 +30,8 @@ const Links = () => {
           <div><Link href="https://www.pref.kyoto.jp/fukei/kakushu/juho/">京都府警察本部</Link></div>
         </div>
       </div>
-      <Footer />
-    </>
+    </main>
   );
 };
 
-export default Links;
+export default Index;

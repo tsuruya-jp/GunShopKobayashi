@@ -6,9 +6,6 @@ const nextConfig = {
   trailingSlash: true,
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    appDir: true,
-  },
 };
 
 const withNextIntl = require("next-intl/plugin")(

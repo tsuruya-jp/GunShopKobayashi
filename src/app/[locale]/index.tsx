@@ -5,6 +5,8 @@ import Slider from "@/features/slider/components/Slider";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { NewsArticle } from "@/features/news/components/NewsArticle";
+import listNews from "@/features/news/api/list";
+import { use } from "react";
 
 type ProductCardProps = {
   assortment: string;
@@ -22,7 +24,14 @@ export const ProductCard = ({ assortment, url }: ProductCardProps) => {
   );
 };
 
+const getData = async () => {
+  const data = await listNews(5, 0);
+  const news: NewsData[] = await JSON.parse(JSON.stringify(data));
+  return news;
+};
+
 const Index = () => {
+  const data = use(getData());
   const t = useTranslations("Top");
   const items: SlideItem[] = [
     { id: 1, content: "/main1.png" },
@@ -51,7 +60,7 @@ const Index = () => {
       <div className="bg-gray-200 py-64 mb-32 md:mb-44 lg:mb-64">
         <div className="w-[90%] mx-auto">
           <p className="mb-10 md:mb-16 text-3xl">{t("Headline.News")}</p>
-          <NewsArticle />
+          <NewsArticle data={data} />
           <Button url="/news" />
         </div>
       </div>
@@ -107,9 +116,7 @@ const Index = () => {
             <Map />
           </div>
           <div className="flex-1 w-[95%] md:pl-5 pt-8 md:pt-0 mx-auto">
-            <div className="mb-8 text-xl font-bold parent">
-              {t("StoreLocations.CorporateName")}
-            </div>
+            <div className="mb-8 text-xl font-bold parent">{t("StoreLocations.CorporateName")}</div>
             <div className="mb-8 parent">
               <p>{t("StoreLocations.PostalCode")}</p>
               <p>{t("StoreLocations.Address")}</p>

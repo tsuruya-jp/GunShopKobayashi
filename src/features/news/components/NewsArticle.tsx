@@ -1,15 +1,7 @@
 import { format } from "date-fns";
 import Link from "next/link";
-import listNews from "../api/list";
 
-const getData = async () => {
-  const data = await listNews(5, 0);
-  const news: NewsData[] = await JSON.parse(JSON.stringify(data));
-  return news;
-};
-
-export const NewsArticle = async () => {
-  const data = await getData();
+export const NewsArticle = ({ data }: { data: NewsData[] }) => {
   const newsList = data.map((v: NewsData) => {
     const date = format(new Date(v.createdAt), "yyyy-MM-dd");
     const permalink = String(date + "_" + v.title);
@@ -22,9 +14,5 @@ export const NewsArticle = async () => {
       </div>
     );
   });
-  return(
-    <div className="md:mx-[60px] md:mb-[60px]">
-      {newsList}
-    </div>
-  );
+  return <div className="md:mx-[60px] md:mb-[60px]">{newsList}</div>;
 };

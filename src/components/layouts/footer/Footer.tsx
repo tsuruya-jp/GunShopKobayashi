@@ -4,6 +4,7 @@ import Icon from "@mdi/react";
 import Link from "next/link";
 import { mdiFacebook } from "@mdi/js";
 import { useTranslations } from "next-intl";
+import Logo from "@/components/elements/logo/Logo";
 
 const Footer = () => {
   const t = useTranslations("Footer");
@@ -11,7 +12,9 @@ const Footer = () => {
     <footer className="md:h-[360px] bg-[#3F5D75] [&_p]:text-[#DFB94A] [&_a]:text-[#DFB94A] [&_p]:text-xs md:[&_p]:text-base [&_a]:text-xs md:[&_a]:text-base">
       <div className="pt-6 md:pt-10 md:flex">
         <div className="md:w-1/4 my-auto">
-          <div className="flex justify-center">logo</div>
+          <div className="flex justify-center w-[200px] mx-auto">
+            <Logo />
+          </div>
           <div className="w-fit mx-auto">
             <p className="md:mt-8 text-xs md:text-base">TEL : 075-841-8866</p>
             <p className="text-xs md:text-base">E-mail : xxxxx@xxx.co.jp</p>
