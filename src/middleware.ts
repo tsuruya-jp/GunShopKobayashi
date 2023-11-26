@@ -9,10 +9,12 @@ const publicPages = [
   "/contact",
   "/links",
   "/news",
-  "/news/*",
+  "/news?/.*",
   "/privacy",
   "/product",
+  "/product?/.*",
   "/real_state",
+  "/login"
 ];
 
 const intlMiddleware = createIntlMiddleware({
@@ -26,17 +28,19 @@ const authMiddleware = withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => token != null,
+      authorized: ({ token }) => {
+        return token != null
+      }
     },
     pages: {
-      signIn: "/admin/login",
+      signIn: "/login",
     },
   }
 );
 
 export default function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(
-    `^(/(${locales.join("|")}))?(${publicPages.join("|")})?/.*$`,
+    `^(/(${locales.join("|")}))?(${publicPages.join("|")})?$`,
     "i"
   );
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
@@ -49,6 +53,6 @@ export default function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|images/*).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|images|ja/admin/login).*)",
   ]
 };

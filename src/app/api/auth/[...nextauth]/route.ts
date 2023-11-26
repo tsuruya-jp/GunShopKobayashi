@@ -2,7 +2,7 @@ import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import getUser from "@/features/user/api/get";
 
-export const options: AuthOptions = {
+const options: AuthOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -50,8 +50,9 @@ export const options: AuthOptions = {
     maxAge: 24 * 60 * 60,
   },
   pages: {
-    signIn: "/admin/login",
+    signIn: "/login",
   },
 };
 
-export default NextAuth(options);
+const handler = NextAuth(options);
+export {handler as GET, handler as POST};

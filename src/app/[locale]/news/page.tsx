@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Pagination } from "../../../features/news/components/Pagination";
 import { NewsArticle } from "@/features/news/components/NewsArticle";
@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 
 const NewsList = () => {
-  const fetcher = (url: string) => fetch(url, { cache: 'no-store' }).then(res => res.json());
+  const fetcher = (url: string) => fetch(url, { cache: "no-store" }).then((res) => res.json());
   const { windowHeight, windowWidth } = GetWindowSize();
   let height = 0;
   if (windowWidth >= 768) {
@@ -20,8 +20,8 @@ const NewsList = () => {
   const searchParams = useSearchParams();
   const queryString = searchParams.get("page") ?? "";
   const { data, error } = useSWR(`/api/news/list?page=${queryString}`, fetcher);
-  if (error) return error()
-  if (!data) return loading()
+  if (error) return error();
+  if (!data) return loading();
 
   return (
     <div
@@ -40,25 +40,25 @@ const NewsList = () => {
 };
 
 const error = () => {
-  return(
+  return (
     <div
       className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
       style={{ minHeight: "calc(100vh - 640px)" }}
     >
       server error
     </div>
-  )
-}
+  );
+};
 
 const loading = () => {
-  return(
+  return (
     <div
       className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
       style={{ minHeight: "calc(100vh - 640px)" }}
     >
       now loading
     </div>
-  )
-}
+  );
+};
 
 export default NewsList;
