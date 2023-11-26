@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "lint": "next lint"
   },
   "browser": {
     "child_process": false
@@ -42,7 +40,7 @@
     "nodemailer": "^6.9.4",
     "npm": "^9.9.0",
     "npx": "^10.2.2",
-    "postcss": "8.4.23",
+    "postcss": "^8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
@@ -56,7 +54,6 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/nodemailer": "^6.4.9",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-storybook": "^0.6.11",
     "prettier": "^2.8.8",
     "prisma": "^5.5.2",
     "ts-node": "^10.9.1",
