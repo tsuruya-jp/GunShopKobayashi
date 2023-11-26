@@ -4,8 +4,8 @@
 
 const nextConfig = {
   trailingSlash: true,
-  reactStrictMode: true,
-  swcMinify: true,
+  // reactStrictMode: true,
+  // swcMinify: true,
 };
 
 const withNextIntl = require("next-intl/plugin")(

@@ -34,10 +34,10 @@ const Index = () => {
   const data = use(getData());
   const t = useTranslations("Top");
   const items: SlideItem[] = [
-    { id: 1, content: "/main1.png" },
-    { id: 2, content: "/main2.png" },
-    { id: 3, content: "/main3.png" },
-    { id: 4, content: "/main4.png" },
+    { id: 1, content: "/images/main1.png" },
+    { id: 2, content: "/images/main2.png" },
+    { id: 3, content: "/images/main3.png" },
+    { id: 4, content: "/images/main4.png" },
   ];
   return (
     <main className="">
@@ -73,7 +73,7 @@ const Index = () => {
             </div>
           </div>
           <div className="flex-image">
-            <Image src="/aboutus.png" alt="" />
+            <Image src="/images/aboutus.png" alt="" />
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ const Index = () => {
         <div className="md:w-2/3 lg:w-1/2 mx-auto">
           <div className="relative m-20">
             <Link href={"http://shotgunfun.blog.fc2.com/"}>
-              <Image src="/hetakusoclub.png" alt="ヘタクソクラブ" />
+              <Image src="/images/hetakusoclub.png" alt="ヘタクソクラブ" />
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 border-4 rounded text-xl text-white">
                 ヘタクソクラブ
               </div>
@@ -91,7 +91,7 @@ const Index = () => {
         <div className="md:w-2/3 lg:w-1/2 mx-auto">
           <div className="relative m-20">
             <Link href={"https://www.facebook.com/kobayashiguns"}>
-              <Image src="/annex.png" alt="京のてっぽうやAnnex" />
+              <Image src="/images/annex.png" alt="京のてっぽうやAnnex" />
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 border-4 rounded text-xl text-white">
                 京のてっぽうやAnnex
               </div>
@@ -100,8 +100,8 @@ const Index = () => {
         </div>
         <div className="md:w-2/3 lg:w-1/2 mx-auto">
           <div className="relative m-20">
-            <Link href={"/real_property"}>
-              <Image src="/realproperty.png" alt="小林不動産" />
+            <Link href={"/real_state"}>
+              <Image src="/images/realstate.png" alt="小林不動産" />
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 border-4 rounded text-xl text-white">
                 小林不動産
               </div>

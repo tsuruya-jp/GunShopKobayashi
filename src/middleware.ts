@@ -12,8 +12,7 @@ const publicPages = [
   "/news/*",
   "/privacy",
   "/product",
-  "/real_property",
-  "/logo_simple.svg"
+  "/real_state",
 ];
 
 const intlMiddleware = createIntlMiddleware({
@@ -49,5 +48,7 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|logo*).*)"]
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|images/*).*)",
+  ]
 };
