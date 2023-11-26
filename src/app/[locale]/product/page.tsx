@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import useSWR from "swr";
+import { useSearchParams } from "next/navigation";
 
 export const ProductList = ({ products }: { products: ProductData[] }) => {
   const productsList = products.map((v) => {
@@ -33,9 +34,9 @@ export const ProductList = ({ products }: { products: ProductData[] }) => {
   return <div className="w-full flex-1">{productsList}</div>;
 };
 
-const ProductPage = ({ params }: { params: { condition: string } }) => {
+const ProductPage = () => {
   const checkItem = [false, false, false, false, false, false];
-  const queryString = params.condition ?? undefined;
+  const queryString = useSearchParams().get("condition");
   if (queryString) {
     switch (Number(queryString)) {
       case 0:

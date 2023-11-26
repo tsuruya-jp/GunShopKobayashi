@@ -41,7 +41,7 @@ const Footer = () => {
             </div>
             <div className="w-[30%]">
               <div className="">
-                <Link href="/">{t("ProductList")}</Link>
+                <Link href="/product">{t("ProductList")}</Link>
               </div>
               <div className="pl-5 pt-4">
                 <Link href="/product?condition=0">{t("NewGuns")}</Link>
