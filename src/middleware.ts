@@ -1,5 +1,6 @@
 import { withAuth } from "next-auth/middleware";
 import createIntlMiddleware from "next-intl/middleware";
+import { notFound } from "next/navigation";
 import { NextRequest } from "next/server";
 
 const locales = ["ja", "en"];
@@ -16,6 +17,10 @@ const publicPages = [
   "/real_state",
   "/login"
 ];
+
+const privatePage = [
+  "/admin"
+]
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -43,16 +48,23 @@ export default function middleware(req: NextRequest) {
     `^(/(${locales.join("|")}))?(${publicPages.join("|")})?$`,
     "i"
   );
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+  const url = req.nextUrl.pathname;
+  const isPublicPage = publicPathnameRegex.test(url);
   if (isPublicPage) {
     return intlMiddleware(req);
   } else {
+    const privatePathnameRegex = RegExp(
+      `^(/(${locales.join("|")}))?(${privatePage.join("|")})?$`,
+      "i"
+    );
+    const isPrivatePage = privatePathnameRegex.test(url);
+    if (!isPrivatePage) return notFound();
     return (authMiddleware as any)(req);
   }
 }
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|images|ja/admin/login).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|images).*)",
   ]
 };
