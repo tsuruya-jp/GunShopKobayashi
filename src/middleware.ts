@@ -1,7 +1,8 @@
+import { getToken } from "next-auth/jwt";
 import { withAuth } from "next-auth/middleware";
 import createIntlMiddleware from "next-intl/middleware";
-import { notFound } from "next/navigation";
-import { NextRequest } from "next/server";
+import { notFound, redirect } from "next/navigation";
+import { NextRequest, NextResponse } from "next/server";
 
 const locales = ["ja", "en"];
 const publicPages = [
@@ -15,11 +16,11 @@ const publicPages = [
   "/product",
   "/product?/.*",
   "/real_state",
-  "/login"
+  "/login",
 ];
 
 const privatePage = [
-  "/admin"
+  "/admin",
 ]
 
 const intlMiddleware = createIntlMiddleware({
@@ -43,7 +44,7 @@ const authMiddleware = withAuth(
   }
 );
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(
     `^(/(${locales.join("|")}))?(${publicPages.join("|")})?$`,
     "i"
@@ -51,6 +52,12 @@ export default function middleware(req: NextRequest) {
   const url = req.nextUrl.pathname;
   const isPublicPage = publicPathnameRegex.test(url);
   if (isPublicPage) {
+    if (locales.map(v => `/${v}/login`).includes(url)) {
+      const token = await getToken({req: req});
+      const redirectUrl = req.nextUrl.clone();
+      redirectUrl.pathname = "/admin";
+      if (token) return NextResponse.redirect(redirectUrl);
+    }
     return intlMiddleware(req);
   } else {
     const privatePathnameRegex = RegExp(

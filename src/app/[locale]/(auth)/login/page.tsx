@@ -3,26 +3,23 @@
 import { signIn } from "next-auth/react";
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 
 const Login = () => {
   const locale = useLocale();
   const router = useRouter();
-  const [error, setError] = useState<string>();
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (error) setError(undefined);
 
     const formData = new FormData(event.currentTarget);
     const result = await signIn("credentials", {
       username: formData.get("userName"),
       password: formData.get("password"),
-      redirect: true,
-      callbackUrl: "/admin",
+      redirect: false,
     });
 
-    if (result?.error) setError(result.error);
-    else router.push(`/${locale}`);
+    if (result?.error) alert(result.error); 
+    else router.push(`/${locale}/admin`);
   };
 
   return (
