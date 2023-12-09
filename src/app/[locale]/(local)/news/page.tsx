@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagination } from "../../../features/news/components/Pagination";
+import { Pagination } from "@/features/news/components/Pagination";
 import { NewsArticle } from "@/features/news/components/NewsArticle";
 import { GetWindowSize } from "@/lib/hook";
 import { useTranslations } from "next-intl";

@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { signIn, getCsrfToken, getSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
-import { FormEvent, FormEventHandler, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 
 const Login = () => {
   const locale = useLocale();
@@ -22,7 +22,7 @@ const Login = () => {
     });
 
     if (result?.error) setError(result.error);
-    else router.push(`/${locale}`)
+    else router.push(`/${locale}`);
   };
 
   return (

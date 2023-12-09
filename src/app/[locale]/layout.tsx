@@ -1,15 +1,13 @@
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { ReactNode } from "react";
-import Header from "@/components/layouts/header/Header";
-import Footer from "@/components/layouts/footer/Footer";
 
 type Props = {
   children: ReactNode;
   params: { locale: string };
 };
 
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
+export default async function Layout({ children, params: { locale } }: Props) {
   let messages;
   const timeZone = "Asia/Tokyo";
   try {
@@ -26,9 +24,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
       </head>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
-          <Header />
           {children}
-          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
