@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { ReactNode } from "react";
+import Script from "next/script";
 
 type Props = {
   children: ReactNode;
@@ -11,7 +12,7 @@ export default async function Layout({ children, params: { locale } }: Props) {
   let messages;
   const timeZone = "Asia/Tokyo";
   try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
+    messages = (await import(`@/messages/${locale}.json`)).default;
   } catch (error) {
     notFound();
   }
@@ -19,7 +20,7 @@ export default async function Layout({ children, params: { locale } }: Props) {
   return (
     <html lang={locale}>
       <head>
-        <script src="http://localhost:8097"></script>
+        <Script src="http://localhost:8097"></Script>
         <title>next-intl & next-auth</title>
       </head>
       <body>

@@ -11,7 +11,6 @@ const News = ({ params }: { params: { newsId: string } }) => {
   const { windowHeight, windowWidth } = GetWindowSize();
   const queryString = params.newsId ?? "";
   const { data, error } = useSWR(`/api/news/get?id=${queryString}`, fetcher);
-  if (error) return error()
   if (!data) return loading()
 
   const date = format(new Date(data.updatedAt), "yyyy-MM-dd");

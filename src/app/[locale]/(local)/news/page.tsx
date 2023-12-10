@@ -20,7 +20,6 @@ const NewsList = () => {
   const searchParams = useSearchParams();
   const queryString = searchParams.get("page") ?? "";
   const { data, error } = useSWR(`/api/news/list?page=${queryString}`, fetcher);
-  if (error) return error();
   if (!data) return loading();
 
   return (
@@ -35,17 +34,6 @@ const NewsList = () => {
         <NewsArticle data={data.data} />
       </div>
       <Pagination pagination={data.pagination} />
-    </div>
-  );
-};
-
-const error = () => {
-  return (
-    <div
-      className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
-      style={{ minHeight: "calc(100vh - 640px)" }}
-    >
-      server error
     </div>
   );
 };

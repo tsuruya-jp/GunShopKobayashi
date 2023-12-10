@@ -25,6 +25,10 @@ import '@draft-js-plugins/anchor/lib/plugin.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import '@draft-js-plugins/image/lib/plugin.css';
 
+interface Blob {
+  name: string;
+}
+
 const TextEditor = () => {
   const [plugins, InlineToolbar, LinkButton] = useMemo(() => {
     const linkPlugin = createLinkPlugin({ placeholder: 'http://...' });

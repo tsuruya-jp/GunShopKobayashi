@@ -1,5 +1,3 @@
-import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth/next";
 import Sidebar from "@/components/layouts/admin/sidebar/Sidebar";
 import Content from "@/components/layouts/admin/content/Content";
 import { useState } from "react";
@@ -7,9 +5,8 @@ import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { TextField } from "@mui/material";
-import { options } from "@/app/api/auth/[...nextauth]/route";
 
-const TextEditor = dynamic(import("../../../../../features/editor/TextEditor"), { ssr: false });
+const TextEditor = dynamic(import("@/features/editor/TextEditor"), { ssr: false });
 
 const Admin = ({ pageProps }: AppProps) => {
   const [isSidebar, setBoolean] = useState(true);
@@ -38,18 +35,3 @@ const Admin = ({ pageProps }: AppProps) => {
 };
 
 export default Admin;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, options);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/admin/login",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {},
-  };
-};

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Sidebar from "@/components/layouts/admin/sidebar/Sidebar";
 import { ReactNode, useState } from "react";
