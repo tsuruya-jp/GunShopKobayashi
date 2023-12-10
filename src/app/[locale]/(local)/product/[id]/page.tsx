@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/components/elements/loading/Loading";
 import Slider from "@/features/slider/components/Slider";
 import useSWR from "swr";
 
@@ -19,7 +20,7 @@ const Product = ({ params }: { params: { id: string } }) => {
   const fetcher = (url: string) =>
     fetch(`/api/product/get?id=${url}`, { cache: "no-store" }).then((res) => res.json());
   const { data } = useSWR(params.id, fetcher);
-  if (!data) return loading();
+  if (!data) return <Loading />
 
   const items = [{ id: 0, content: "/" + data.image }];
   data.images
@@ -106,17 +107,6 @@ const Product = ({ params }: { params: { id: string } }) => {
         <div className="whitespace-pre-wrap">{data.description}</div>
       </div>
     </main>
-  );
-};
-
-const loading = () => {
-  return (
-    <div
-      className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
-      style={{ minHeight: "calc(100vh - 640px)" }}
-    >
-      now loading
-    </div>
   );
 };
 

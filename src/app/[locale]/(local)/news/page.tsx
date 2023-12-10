@@ -6,6 +6,7 @@ import { GetWindowSize } from "@/lib/hook";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
+import Loading from "@/components/elements/loading/Loading";
 
 const NewsList = () => {
   const fetcher = (url: string) => fetch(url, { cache: "no-store" }).then((res) => res.json());
@@ -18,9 +19,9 @@ const NewsList = () => {
   }
   const t = useTranslations();
   const searchParams = useSearchParams();
-  const queryString = searchParams.get("page") ?? "";
+  const queryString = searchParams ? searchParams.get("page") : "";
   const { data, error } = useSWR(`/api/news/list?page=${queryString}`, fetcher);
-  if (!data) return loading();
+  if (!data) return <Loading />
 
   return (
     <div
@@ -34,17 +35,6 @@ const NewsList = () => {
         <NewsArticle data={data.data} />
       </div>
       <Pagination pagination={data.pagination} />
-    </div>
-  );
-};
-
-const loading = () => {
-  return (
-    <div
-      className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
-      style={{ minHeight: "calc(100vh - 640px)" }}
-    >
-      now loading
     </div>
   );
 };

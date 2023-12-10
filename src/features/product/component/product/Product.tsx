@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "@/components/elements/image/Image";
 
-export const ProductList = ({ products }: { products: ProductData[] }) => {
+const ProductList = ({ products }: { products: ProductData[] }) => {
   const productsList = products.map((v) => {
     return (
       <div className="" key={v.id}>
@@ -26,3 +26,5 @@ export const ProductList = ({ products }: { products: ProductData[] }) => {
   });
   return <div className="w-full flex-1">{productsList}</div>;
 };
+
+export default ProductList;

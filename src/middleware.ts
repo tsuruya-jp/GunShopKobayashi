@@ -1,7 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { withAuth } from "next-auth/middleware";
 import createIntlMiddleware from "next-intl/middleware";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 const locales = ["ja", "en"];

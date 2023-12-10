@@ -5,11 +5,13 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
-import { ProductList } from "@/features/product/component/product/Product";
+import Loading from "@/components/elements/loading/Loading";
+import ProductList from "@/features/product/component/product/Product";
 
 const ProductPage = () => {
   const checkItem = [false, false, false, false, false, false];
-  const queryString = useSearchParams().get("condition");
+  const searchParams = useSearchParams();
+  const queryString = searchParams ? searchParams.get("condition") : "";
   if (queryString) {
     switch (Number(queryString)) {
       case 0:
@@ -37,7 +39,7 @@ const ProductPage = () => {
   };
 
   const { data } = useSWR(checked, fetcher);
-  if (!data) return loading();
+  if (!data) return <Loading />;
 
   return (
     <main>
@@ -86,17 +88,6 @@ const ProductPage = () => {
         </div>
       </div>
     </main>
-  );
-};
-
-const loading = () => {
-  return (
-    <div
-      className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
-      style={{ minHeight: "calc(100vh - 640px)" }}
-    >
-      now loading
-    </div>
   );
 };
 

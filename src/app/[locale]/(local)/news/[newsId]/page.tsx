@@ -1,6 +1,6 @@
 "use client"
 
-import listNews from "@/features/news/api/list";
+import Loading from "@/components/elements/loading/Loading";
 import { GetWindowSize } from "@/lib/hook";
 import { format } from "date-fns";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
@@ -11,7 +11,7 @@ const News = ({ params }: { params: { newsId: string } }) => {
   const { windowHeight, windowWidth } = GetWindowSize();
   const queryString = params.newsId ?? "";
   const { data, error } = useSWR(`/api/news/get?id=${queryString}`, fetcher);
-  if (!data) return loading()
+  if (!data) return <Loading />;
 
   const date = format(new Date(data.updatedAt), "yyyy-MM-dd");
   const raw = data.content;
@@ -38,31 +38,3 @@ const News = ({ params }: { params: { newsId: string } }) => {
 
 export default News;
 
-const generateStaticParams = async () => {
-  const data = await listNews(undefined, undefined);
-  const news: NewsData[] = await JSON.parse(JSON.stringify(data));
-  const paths = news.map((v: NewsData) => {
-    const date = format(new Date(v.createdAt), "yyyy-MM-dd");
-    const permalink = String(date + "_" + v.title);
-    return {
-      params: {
-        newsId: permalink,
-      },
-    };
-  });
-
-  return {
-    paths: paths,
-  };
-};
-
-const loading = () => {
-  return(
-    <div
-      className={`w-[90%] max-w-[880px] mx-auto mt-[80px] mb-[120px]`}
-      style={{ minHeight: "calc(100vh - 640px)" }}
-    >
-      now loading
-    </div>
-  )
-}
