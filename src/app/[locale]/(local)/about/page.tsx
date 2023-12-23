@@ -46,35 +46,19 @@ const About = () => {
             </tr>
             <tr>
               <td>FAX</td>
-              <td></td>
+              <td>075-801-1557</td>
             </tr>
             <tr>
               <td>代表者</td>
-              <td></td>
+              <td>小林 良幸</td>
             </tr>
             <tr>
               <td>創業</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>資本金</td>
-              <td></td>
+              <td>1958年4月7日</td>
             </tr>
             <tr>
               <td>事業内容</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>社員数</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>取引銀行</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>主要取引先</td>
-              <td></td>
+              <td>猟銃火薬類等の販売<br/>産業火薬類の販売及び運搬</td>
             </tr>
           </tbody>
         </table>
