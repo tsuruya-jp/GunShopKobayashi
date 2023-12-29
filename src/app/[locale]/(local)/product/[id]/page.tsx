@@ -22,7 +22,7 @@ const Product = ({ params }: { params: { id: string } }) => {
   const { data } = useSWR(params.id, fetcher);
   if (!data) return <Loading />
 
-  const items = [{ id: 0, content: "/" + data.image }];
+  const items = [{ id: 0, content: "/images/" + data.image }];
   data.images
     ? Object.keys(data.images).map((v: any) => {
         return items.push({ id: Number(v), content: data.images[v] });
