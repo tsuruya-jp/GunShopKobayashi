@@ -19,10 +19,6 @@ export default async function Layout({ children, params: { locale } }: Props) {
 
   return (
     <html lang={locale}>
-      <head>
-        <Script src="http://localhost:8097"></Script>
-        <title>next-intl & next-auth</title>
-      </head>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
           {children}
