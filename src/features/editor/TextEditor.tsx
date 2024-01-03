@@ -25,10 +25,6 @@ import '@draft-js-plugins/anchor/lib/plugin.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import '@draft-js-plugins/image/lib/plugin.css';
 
-interface Blob {
-  name: string;
-}
-
 const TextEditor = () => {
   const [plugins, InlineToolbar, LinkButton] = useMemo(() => {
     const linkPlugin = createLinkPlugin({ placeholder: 'http://...' });
@@ -65,7 +61,7 @@ const TextEditor = () => {
     setEditorState(newEditorState);
   };
 
-  const handleDroppedFiles = (selection: SelectionState, files: Blob[]): DraftHandleValue => {
+  const handleDroppedFiles = (selection: SelectionState, files: any): DraftHandleValue => {
     insertImage(files[0].name);
     return 'handled';
   };
