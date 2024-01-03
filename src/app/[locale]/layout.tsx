@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { ReactNode } from "react";
-import Script from "next/script";
 
 type Props = {
   children: ReactNode;

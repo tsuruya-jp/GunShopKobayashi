@@ -14,6 +14,8 @@ model News {
   title     String   @db.VarChar(255)
   content   Json?
   public    Boolean
+
+  @@map("news")
 }
 
 model Product {
@@ -33,6 +35,8 @@ model Product {
   remarks      String?  @db.VarChar
   sequence     Int?
   description  String?  @db.VarChar
+
+  @@map("product")
 }
 
 model User {
@@ -40,4 +44,6 @@ model User {
   username String @unique
   email    String
   password String
+
+  @@map("user")
 }
