@@ -34,6 +34,7 @@ services:
     image: certbot/certbot:v2.8.0
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
+      - ./nginx/index.html:/usr/share/nginx/html/index.html
     command: ["--version"]
 
 volumes:
