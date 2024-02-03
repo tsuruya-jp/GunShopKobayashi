@@ -22,7 +22,7 @@ model Product {
   id           String   @id @db.VarChar(32)
   name         String   @unique @db.VarChar(64)
   price        Int
-  image        String   @db.VarChar(64)
+  image        String   @db.VarChar(128)
   images       Json?
   type         Int
   caliber      String   @db.VarChar(32)

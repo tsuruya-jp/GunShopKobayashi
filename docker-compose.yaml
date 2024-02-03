@@ -11,7 +11,7 @@ services:
       - ./src:/src
     tty: true
     restart: always
-    command: bash -c "npm run start"
+    command: bash -c "npm run dev"
   db:
     image: postgres:16.1
     container_name: postgres

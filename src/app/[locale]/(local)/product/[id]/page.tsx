@@ -1,8 +1,13 @@
 "use client";
 
 import Loading from "@/components/elements/loading/Loading";
-import Slider from "@/features/slider/components/Slider";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import useSWR from "swr";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
 
 const conditionType = {
   New: 0,
@@ -16,16 +21,38 @@ const gunType = {
   Air: 3,
 };
 
+const Slider = ({ items, top }: SliderProps) => {
+  const classes = top ? "md:!w-[90%] lg:!w-4/5" : "";
+  return (
+    <Swiper
+      modules={[Navigation, Pagination]}
+      slidesPerView={"auto"}
+      centeredSlides={true}
+      navigation={true}
+      pagination={{
+        clickable: true,
+      }}
+    >
+      {items.map((v) => (
+        <SwiperSlide key={v.id} className={classes}>
+          <img src={v.content} alt={""} />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
 const Product = ({ params }: { params: { id: string } }) => {
   const fetcher = (url: string) =>
     fetch(`/api/product/get?id=${url}`, { cache: "no-store" }).then((res) => res.json());
   const { data } = useSWR(params.id, fetcher);
   if (!data) return <Loading />
 
-  const items = [{ id: 0, content: "/images/" + data.image }];
+  const URL = process.env.NEXT_PUBLIC_CLOUDFLARE_URL;
+  const items = [{ id: 0, content: `${URL}${data.name}/${data.image}` }];
   data.images
     ? Object.keys(data.images).map((v: any) => {
-        return items.push({ id: Number(v), content: data.images[v] });
+        return items.push({ id: Number(v), content: `${URL}${data.name}/${data.images[v]}` });
       })
     : null;
   const pull = data.pull ?? "-";

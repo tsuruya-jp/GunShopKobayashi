@@ -1,13 +1,13 @@
 import Link from "next/link";
-import Image from "@/components/elements/image/Image";
 
 const ProductList = ({ products }: { products: ProductData[] }) => {
+  const URL = process.env.NEXT_PUBLIC_CLOUDFLARE_URL;
   const productsList = products.map((v) => {
     return (
       <div className="" key={v.id}>
         <div className="border border-[#AAA] mb-4">
           <Link href={`product/${v.name}`}>
-            <Image src={`/images/${v.image}`} alt="" />
+            <img src={`${URL}${v.name}/${v.image}`} alt="" />
           </Link>
         </div>
         <div className="ml-2 mb-16">

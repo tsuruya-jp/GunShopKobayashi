@@ -7,11 +7,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 
-type SliderProps = {
-  items: SlideItem[];
-  top: boolean;
-};
-
 const Slider = ({ items, top }: SliderProps) => {
   const classes = top ? "md:!w-[90%] lg:!w-4/5" : "";
   return (
