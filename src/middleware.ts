@@ -21,6 +21,7 @@ const publicPages = [
 
 const privatePage = [
   "/admin",
+  "/admin/.*",
 ]
 
 const intlMiddleware = createIntlMiddleware({

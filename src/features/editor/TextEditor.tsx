@@ -6,12 +6,12 @@ import {
   SelectionState,
   convertFromRaw,
   convertToRaw,
-} from 'draft-js';
-import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
-import createInlineToolbarPlugin, { Separator } from '@draft-js-plugins/inline-toolbar';
-import 'draft-js/dist/Draft.css';
-import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
-import { ComponentType, useEffect, useMemo, useState } from 'react';
+} from "draft-js";
+import Editor from "@draft-js-plugins/editor";
+import createInlineToolbarPlugin, { Separator } from "@draft-js-plugins/inline-toolbar";
+import "draft-js/dist/Draft.css";
+import "@draft-js-plugins/inline-toolbar/lib/plugin.css";
+import { ComponentType, Dispatch, useEffect, useMemo, useState } from "react";
 import {
   ItalicButton,
   BoldButton,
@@ -19,62 +19,54 @@ import {
   HeadlineOneButton,
   HeadlineTwoButton,
   HeadlineThreeButton,
-} from '@draft-js-plugins/buttons';
-import createLinkPlugin from '@draft-js-plugins/anchor';
-import '@draft-js-plugins/anchor/lib/plugin.css';
-import createImagePlugin from '@draft-js-plugins/image';
-import '@draft-js-plugins/image/lib/plugin.css';
+} from "@draft-js-plugins/buttons";
+import createLinkPlugin from "@draft-js-plugins/anchor";
+import "@draft-js-plugins/anchor/lib/plugin.css";
+import createImagePlugin from "@draft-js-plugins/image";
+import "@draft-js-plugins/image/lib/plugin.css";
 
-const TextEditor = () => {
+const TextEditor = ({ content, update }: { content: any; update: Dispatch<any> }) => {
   const [plugins, InlineToolbar, LinkButton] = useMemo(() => {
-    const linkPlugin = createLinkPlugin({ placeholder: 'http://...' });
+    const linkPlugin = createLinkPlugin({ placeholder: "http://..." });
     const imagePlugin = createImagePlugin();
     const inlineToolbarPlugin = createInlineToolbarPlugin();
-    return [[inlineToolbarPlugin, linkPlugin, imagePlugin], inlineToolbarPlugin.InlineToolbar, linkPlugin.LinkButton];
+    return [
+      [inlineToolbarPlugin, linkPlugin, imagePlugin],
+      inlineToolbarPlugin.InlineToolbar,
+      linkPlugin.LinkButton,
+    ];
   }, []);
 
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   useEffect(() => {
-    setEditorState(createEditorStateWithText(''));
-  }, []);
-
-  const [readonly, setReadOnly] = useState(false);
-
-  useEffect(() => {
-    const raw = localStorage.getItem('test');
-    if (raw) {
-      const contentState = convertFromRaw(JSON.parse(raw));
+    if (Object.keys(content).length !== 0) {
+      const contentState = convertFromRaw(content);
       const newEditorState = EditorState.createWithContent(contentState);
       setEditorState(newEditorState);
     }
-  }, []);
+  }, [content]);
+
+  useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    const raw = convertToRaw(contentState);
+    update(raw);
+  }, [editorState, update]);
 
   const insertImage = (url: any) => {
     const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', { src: url });
+    const contentStateWithEntity = contentState.createEntity("image", "IMMUTABLE", { src: url });
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const nextEditorState = EditorState.set(editorState, {
       currentContent: contentStateWithEntity,
     });
-    const newEditorState = AtomicBlockUtils.insertAtomicBlock(nextEditorState, entityKey, ' ');
+    const newEditorState = AtomicBlockUtils.insertAtomicBlock(nextEditorState, entityKey, " ");
     setEditorState(newEditorState);
   };
 
   const handleDroppedFiles = (selection: SelectionState, files: any): DraftHandleValue => {
     insertImage(files[0].name);
-    return 'handled';
-  };
-
-  const saveContent = () => {
-    const contentState = editorState.getCurrentContent();
-    const raw = convertToRaw(contentState);
-    localStorage.setItem('test', JSON.stringify(raw, null, 2));
-  };
-
-  const toggleBold = (event: any) => {
-    event.preventDefault();
-    setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+    return "handled";
   };
 
   const handleKeyCommand = (command: any, editorState: EditorState) => {
@@ -82,15 +74,10 @@ const TextEditor = () => {
 
     if (newState) {
       setEditorState(newState);
-      return 'handled';
+      return "handled";
     }
 
-    return 'not-handled';
-  };
-
-  const toggleHeaderOne = (event: any) => {
-    event.preventDefault();
-    setEditorState(RichUtils.toggleBlockType(editorState, 'header-one'));
+    return "not-handled";
   };
 
   interface OverrideContentProps {
@@ -99,17 +86,18 @@ const TextEditor = () => {
     onOverrideContent: (content: ComponentType<unknown> | undefined) => void;
   }
 
-  type OverrideOnOverrideContent = (content: ComponentType<OverrideContentProps> | undefined) => void;
+  type OverrideOnOverrideContent = (
+    content: ComponentType<OverrideContentProps> | undefined
+  ) => void;
 
   return (
     <>
-      <div className='prose max-w-none m-auto bg-white h-[calc(100vh-144px)] w-full overflow-scroll rounded-md border border-gray-300 p-3 shadow-sm sm:text-sm'>
+      <div className="prose max-w-none m-auto bg-white h-[calc(100vh/2.25)] w-full overflow-scroll rounded-md border border-gray-300 p-3 shadow-sm sm:text-sm">
         <Editor
-          placeholder='入力してください'
+          placeholder="入力してください"
           editorState={editorState}
           onChange={setEditorState}
           plugins={plugins}
-          readOnly={readonly}
           handleDroppedFiles={handleDroppedFiles}
           handleKeyCommand={handleKeyCommand}
         />
@@ -130,28 +118,6 @@ const TextEditor = () => {
             </>
           )}
         </InlineToolbar>
-      </div>
-      <div className='prose max-w-none m-auto'>
-        {!readonly && (
-          <button className='rounded-md border border-gray-300 px-2' onClick={saveContent}>
-            保存
-          </button>
-        )}
-        {readonly ? (
-          <button className='rounded-md border border-gray-300 px-2' onClick={() => setReadOnly(false)}>
-            Edit
-          </button>
-        ) : (
-          <button className='rounded-md border border-gray-300 px-2' onClick={() => setReadOnly(true)}>
-            ReadOnly
-          </button>
-        )}
-        <button className='rounded-md border border-gray-300 px-2' onClick={toggleBold}>
-          太字
-        </button>
-        <button className='rounded-md border border-gray-300 px-2' onClick={toggleHeaderOne}>
-          h1
-        </button>
       </div>
     </>
   );

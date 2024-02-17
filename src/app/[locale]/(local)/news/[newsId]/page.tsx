@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Loading from "@/components/elements/loading/Loading";
 import { GetWindowSize } from "@/lib/hook";
@@ -7,10 +7,10 @@ import { Editor, EditorState, convertFromRaw } from "draft-js";
 import useSWR from "swr";
 
 const News = ({ params }: { params: { newsId: string } }) => {
-  const fetcher = (url: string) => fetch(url, { next: { revalidate: 900 } }).then(res => res.json());
+  const fetcher = (url: string) => fetch(url, { next: { revalidate: 900 } }).then((res) => res.json());
   const { windowHeight, windowWidth } = GetWindowSize();
   const queryString = params.newsId ?? "";
-  const { data, error } = useSWR(`/api/news/get?id=${queryString}`, fetcher);
+  const { data } = useSWR(`/api/news/get?id=${queryString}`, fetcher);
   if (!data) return <Loading />;
 
   const date = format(new Date(data.updatedAt), "yyyy-MM-dd");
@@ -37,4 +37,3 @@ const News = ({ params }: { params: { newsId: string } }) => {
 };
 
 export default News;
-
