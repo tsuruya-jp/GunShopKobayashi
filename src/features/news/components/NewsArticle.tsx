@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const NewsArticle = ({ data }: { data: NewsData[] }) => {
   const newsList = data.map((v: NewsData) => {
-    const date = format(new Date(v.createdAt), "yyyy-MM-dd");
+    const date = format(new Date(v.createdAt!), "yyyy-MM-dd");
     const permalink = String(date + "_" + v.title);
     return (
       <div key={v.id} className={`mb-4 md:mb-8 parent md:flex`}>

@@ -1,11 +1,13 @@
 "use client";
 
 import NewsDialog from "@/features/news/components/NewsDialog";
+import NewsList from "@/features/news/components/NewsList";
 import { useEffect, useState } from "react";
 
 const AdminNews = () => {
   const [disabled, setDisabled] = useState(false);
   const [data, setData] = useState<NewsData[]>([]);
+  const [reloadCount, setReloadCount] = useState(0);
   const [selected, setSelected] = useState<NewsData>({
     id: "",
     title: "",
@@ -14,18 +16,22 @@ const AdminNews = () => {
   });
 
   useEffect(() => {
+    console.log("reload");
     const res = async () => {
       const res = await fetch("/api/news/list", { cache: "no-store" });
       const data = await res.json();
       setData(data.data);
     };
     res();
-    return;
-  }, []);
-  const open = (i: number) => {
-    setSelected(data[i]);
+  }, [reloadCount]);
+
+  const open = (i: number | null) => {
+    if (typeof i === "number") {
+      setSelected(data[i]);
+    }
     setDisabled(true);
   };
+
   const close = () => {
     setSelected({
       id: "",
@@ -35,16 +41,23 @@ const AdminNews = () => {
     });
     setDisabled(false);
   };
+
+  const reload = () => {
+    const count = reloadCount + 1;
+    setReloadCount(count);
+  };
   return (
     <>
-      <NewsDialog disabled={disabled} data={selected} close={close} />
-      {data.map((v: NewsData, i: number) => (
-        <div key={i.toString()}>
-          <button onClick={() => open(i)} className="hover:text-gray-400">
-            {v.title}
-          </button>
-        </div>
-      ))}
+      <NewsDialog disabled={disabled} data={selected} close={close} reload={reload} />
+      <div className="mb-8">
+        <button
+          className="border border-black rounded bg-gray-700 text-white py-1 px-2"
+          onClick={() => open(null)}
+        >
+          新規作成
+        </button>
+      </div>
+      <NewsList items={data} open={open} />
     </>
   );
 };

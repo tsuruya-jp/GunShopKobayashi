@@ -9,20 +9,36 @@ const NewsDialog = ({
   disabled,
   data,
   close,
+  reload
 }: {
   disabled: boolean;
   data: NewsData;
   close: () => void;
+  reload: () => void;
 }) => {
   const [title, setTitle] = useState(data.title);
   const [content, setContent] = useState(data.content);
   const [isPublic, setPublic] = useState(data.public);
 
   const newsTitle = () => {
-    if (data.title.length !== 0) {
+    if (data.title.length === 0) {
       return <div className="text-2xl">登録</div>;
     }
-    return <div>編集</div>;
+    return <div className="text-2xl">編集</div>;
+  };
+
+  const deleteButton = () => {
+    if (data.title.length !== 0) {
+      return (
+        <button
+          className="cursor-pointer rounded-md bg-slate-300 py-1 px-4 ml-1"
+          onClick={() => deleteNews()}
+        >
+          削除
+        </button>
+      );
+    }
+    return <></>;
   };
 
   const registerNews = async () => {
@@ -35,6 +51,8 @@ const NewsDialog = ({
           public: isPublic,
         }),
       });
+      close();
+      reload();
       return;
     }
     await fetch("/api/news/update", {
@@ -46,6 +64,20 @@ const NewsDialog = ({
         public: isPublic,
       }),
     });
+    close();
+    reload();
+    return;
+  };
+
+  const deleteNews = async () => {
+    await fetch("/api/news/delete", {
+      method: "POST",
+      body: JSON.stringify({
+        id: data.id,
+      }),
+    });
+    close();
+    reload();
     return;
   };
 
@@ -88,13 +120,14 @@ const NewsDialog = ({
             <p>お知らせ内容</p>
             <DraftEditor content={data.content} update={setContent} />
           </div>
-          <div className="text-center">
+          <div className="flex justify-center">
             <button
               className="cursor-pointer rounded-md bg-slate-300 py-1 px-4"
               onClick={() => registerNews()}
             >
               登録
             </button>
+            {deleteButton()}
           </div>
         </div>
       </div>

@@ -44,7 +44,9 @@ const TextEditor = ({ content, update }: { content: any; update: Dispatch<any> }
       const contentState = convertFromRaw(content);
       const newEditorState = EditorState.createWithContent(contentState);
       setEditorState(newEditorState);
+      return;
     }
+    setEditorState(EditorState.createEmpty());
   }, [content]);
 
   useEffect(() => {
