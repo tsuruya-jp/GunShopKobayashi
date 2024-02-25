@@ -16,7 +16,6 @@ const AdminNews = () => {
   });
 
   useEffect(() => {
-    console.log("reload");
     const res = async () => {
       const res = await fetch("/api/news/list", { cache: "no-store" });
       const data = await res.json();

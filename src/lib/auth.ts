@@ -34,6 +34,7 @@ export const options: AuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.user.username = token.username;
+        session.user.id = token.id;
       }
       return Promise.resolve(session);
     },
@@ -41,6 +42,7 @@ export const options: AuthOptions = {
       const isSignIn = user ? true : false;
       if (isSignIn) {
         token.username = user.username;
+        token.id = user.id;
       }
       return Promise.resolve(token);
     },
