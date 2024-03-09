@@ -7,10 +7,6 @@ type Props = {
   children: ReactNode;
 };
 
-export const metadata: Metadata = {
-  title: "小林銃砲火薬店",
-}
-
 const LocaleLayout = async ({ children }: Props) => {
   return (
     <>
