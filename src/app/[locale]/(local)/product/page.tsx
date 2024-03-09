@@ -1,12 +1,10 @@
 "use client";
 
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
-import Loading from "@/components/elements/loading/Loading";
-import ProductList from "@/features/product/component/product/Product";
+import ProductList from "@/features/product/component/Product";
 
 const ProductPage = () => {
   const checkItem = [false, false, false, false, false, false];
@@ -24,22 +22,26 @@ const ProductPage = () => {
   }
   const t = useTranslations();
   const [checked, setChecked] = useState(checkItem);
-  const fetcher = async (checked: boolean[]) => {
-    const data = await fetch(
-      `/api/product/list?${new URLSearchParams({ condition: `${checked}` })}`,
-      {
-        cache: "no-store",
-      }
-    );
-    return await data.json();
-  };
+  const [data, setData] = useState<ProductData[]>([]);
+
   const change = (index: number): any => {
     const newChecked = checked.map((v, i) => (i === index ? !v : v));
     setChecked(newChecked);
   };
 
-  const { data } = useSWR(checked, fetcher);
-  if (!data) return <Loading />;
+  useEffect(() => {
+    const fetcher = async () => {
+      const dataRes = await fetch(
+        `/api/product/list?${new URLSearchParams({ condition: `${checked}` })}`,
+        {
+          cache: "no-store",
+        }
+      );
+      const data = await dataRes.json();
+      setData(data);
+    }
+    fetcher()
+  }, [])
 
   return (
     <main>

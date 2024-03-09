@@ -2,7 +2,7 @@
 
 import Loading from "@/components/elements/loading/Loading";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import useSWR from "swr";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -46,13 +46,13 @@ const Product = ({ params }: { params: { id: string } }) => {
   const fetcher = (url: string) =>
     fetch(`/api/product/get?id=${url}`, { cache: "no-store" }).then((res) => res.json());
   const { data } = useSWR(params.id, fetcher);
-  if (!data) return <Loading />
+  if (!data) return <Loading />;
 
   const URL = process.env.NEXT_PUBLIC_CLOUDFLARE_URL;
-  const items = [{ id: 0, content: `${URL}${data.name}/${data.image}` }];
+  const items = [{ id: 0, content: `${URL}${data.image}` }];
   data.images
-    ? Object.keys(data.images).map((v: any) => {
-        return items.push({ id: Number(v), content: `${URL}${data.name}/${data.images[v]}` });
+    ? Object.keys(data.images).map((v: string) => {
+        return items.push({ id: Number(v) + 1, content: `${URL}${data.images[v]}` });
       })
     : null;
   const pull = data.pull ?? "-";

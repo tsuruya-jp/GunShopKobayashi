@@ -8,11 +8,11 @@ type ProductData = {
   caliber: string;
   manufacturer: string;
   model: string;
-  barrelLength: Decimal;
-  weight: Decimal;
-  pull: Decimal;
+  barrelLength?: Decimal;
+  weight?: Decimal;
+  pull?: Decimal;
   condition: number;
-  remarks: string;
-  sequence: number;
-  description: string;
+  remarks?: string;
+  sequence?: number;
+  description?: string;
 };

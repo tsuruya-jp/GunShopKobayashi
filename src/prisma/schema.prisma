@@ -39,6 +39,14 @@ model Product {
   @@map("product")
 }
 
+model Image {
+  id   String   @id @db.VarChar(32)
+  name String @db.VarChar(128)
+  urn  String @db.VarChar(256)
+
+  @@map("image")
+}
+
 model User {
   id       String @id
   username String @unique
