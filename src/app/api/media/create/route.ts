@@ -27,12 +27,14 @@ export const POST = async (req: NextRequest) => {
       name: data.name,
       urn: data.urn,
     };
+    console.log(data.image);
 
-    await prisma.image.create({
-      data: input,
-    });
+    // await prisma.image.create({
+    //   data: input,
+    // });
 
-    return Response.json(input);
+    // return Response.json(input);
+    return Response.json({});
   } catch (err) {
     return Response.json({ error: "internal server error" }, { status: 500 });
   }

@@ -176,7 +176,7 @@ const ProductDialog = ({
 
   useEffect(() => {
     const res = async () => {
-      const res = await fetch("/api/image/list", {
+      const res = await fetch("/api/media/list", {
         method: "POST",
         body: JSON.stringify({ name: "" }),
         cache: "no-store",

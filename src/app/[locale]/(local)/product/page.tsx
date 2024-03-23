@@ -40,11 +40,11 @@ const ProductPage = () => {
         }
       );
       const data: ProductData[] = await dataRes.json();
-      const imagesRes = await fetch("/api/image/list", {
+      const imagesRes = await fetch("/api/media/list", {
         method: "POST",
         body: JSON.stringify({}),
       });
-      const images: TImageData[] = await imagesRes.json();
+      const images: MediaData[] = await imagesRes.json();
       images.map((v) => {
         arrayID[v.id] = v.urn;
       });
