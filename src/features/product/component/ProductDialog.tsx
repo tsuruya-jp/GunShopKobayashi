@@ -1,6 +1,16 @@
 import { mdiCloseThick } from "@mdi/js";
 import Icon from "@mdi/react";
-import { useEffect, useState } from "react";
+import {
+  Button,
+  Checkbox,
+  InputAdornment,
+  ListItemText,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
+import { ReactNode, useEffect, useState } from "react";
 
 const ProductDialog = ({
   disabled,
@@ -14,7 +24,6 @@ const ProductDialog = ({
   reload: () => void;
 }) => {
   const [imageList, setImageList] = useState<{ id: string; name: string }[]>([]);
-  const [id, setId] = useState(data.id);
   const [caliber, setCaliber] = useState(data.caliber);
   const [manu, setManu] = useState(data.manufacturer);
   const [model, setModel] = useState(data.model);
@@ -24,12 +33,12 @@ const ProductDialog = ({
   const [remarks, setRemarks] = useState(data.remarks);
   const [desc, setDesc] = useState(data.description);
   const [image, setImage] = useState(data.image);
-  const [images, setImages] = useState(data.images);
+  const [images, setImages] = useState<any>(Object.values(data.images));
   const [name, setName] = useState(data.name);
   const [price, setPrice] = useState(data.price);
-  const [seq, setSeq] = useState(data.sequence);
   const [type, setType] = useState(data.type);
   const [cond, setCond] = useState(data.condition);
+  const [button, setBtn] = useState(true);
 
   const productTitle = () => {
     if (data.id.length === 0) {
@@ -41,23 +50,43 @@ const ProductDialog = ({
   const deleteButton = () => {
     if (data.id.length !== 0) {
       return (
-        <button
-          className="cursor-pointer rounded-md bg-slate-300 py-1 px-4 ml-1"
+        <Button
+          variant="outlined"
+          className="rounded-md bg-slate-300 border-black/25 text-black py-1 px-4 ml-1 hover:border-black"
           onClick={() => deleteProduct()}
         >
           削除
-        </button>
+        </Button>
       );
     }
     return <></>;
   };
 
   const registerProduct = async () => {
+    let obj;
+    if (images.length !== 0) {
+      obj = Object.assign({}, images);
+    } else {
+      obj = {};
+    }
     if (data.id.length === 0) {
       await fetch("/api/product/create", {
         method: "POST",
         body: JSON.stringify({
           name: name,
+          caliber: caliber,
+          manufacturer: manu,
+          model: model,
+          barrelLength: bLen,
+          weight: weight,
+          pull: pull,
+          remarks: remarks,
+          description: desc,
+          image: image,
+          images: obj,
+          price: price,
+          type: type,
+          condition: cond,
         }),
       });
       close();
@@ -69,6 +98,19 @@ const ProductDialog = ({
       body: JSON.stringify({
         id: data.id,
         name: name,
+        caliber: caliber,
+        manufacturer: manu,
+        model: model,
+        barrelLength: bLen,
+        weight: weight,
+        pull: pull,
+        remarks: remarks,
+        description: desc,
+        image: image,
+        images: obj,
+        price: price,
+        type: type,
+        condition: cond,
       }),
     });
     close();
@@ -88,8 +130,29 @@ const ProductDialog = ({
     return;
   };
 
+  const handleChangeImages = (event: SelectChangeEvent) => {
+    const {
+      target: { value },
+    } = event;
+    setImages(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const renderVal = (items: any): ReactNode => {
+    const name = items.map((v: string) => {
+      return imageList.find(({ id }) => id === v)?.name;
+    });
+    return name.join(", ");
+  };
+
   useEffect(() => {
-    setId(data.id);
+    if (name) {
+      setBtn(false);
+      return;
+    }
+    setBtn(true);
+  }, [name]);
+
+  useEffect(() => {
     setCaliber(data.caliber);
     setManu(data.manufacturer);
     setModel(data.model);
@@ -98,13 +161,16 @@ const ProductDialog = ({
     setPull(data.pull);
     setRemarks(data.remarks);
     setDesc(data.description);
-    setImage(data.image);
-    setImages(data.images);
+    setImages(Object.values(data.images));
     setName(data.name);
     setPrice(data.price);
-    setSeq(data.sequence);
     setType(data.type);
     setCond(data.condition);
+    if (data.image) {
+      setImage(data.image);
+    } else if (imageList.length !== 0) {
+      setImage(imageList[0].id);
+    }
     return;
   }, [data]);
 
@@ -133,8 +199,9 @@ const ProductDialog = ({
           </div>
           <div className="mt-4 mb-2">
             <p>名前</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
+              variant="outlined"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -142,40 +209,39 @@ const ProductDialog = ({
           </div>
           <div className="mt-4 mb-2">
             <p>メイン画像</p>
-            <select
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <Select
+              className="w-full rounded-md bg-slate-300/25"
               onChange={(e) => setImage(e.target.value)}
               value={image}
             >
-              {imageList.map((v, i) => {
-                return (
-                  <option key={i} value={v.id}>
-                    {v.name}
-                  </option>
-                );
-              })}
-            </select>
+              {imageList.map((v, i) => (
+                <MenuItem key={i} value={v.id}>
+                  {v.name}
+                </MenuItem>
+              ))}
+            </Select>
           </div>
           <div className="mt-4 mb-2">
             <p>サブ画像</p>
-            <select
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
-              onChange={(e) => setImage(e.target.value)}
-              value={image}
+            <Select
+              className="w-full rounded-md bg-slate-300/25"
+              multiple
+              value={images}
+              onChange={handleChangeImages}
+              renderValue={(selected) => renderVal(selected)}
             >
-              {imageList.map((v, i) => {
-                return (
-                  <option key={i} value={v.id}>
-                    {v.name}
-                  </option>
-                );
-              })}
-            </select>
+              {imageList.map((v, i) => (
+                <MenuItem key={i} value={v.id}>
+                  <Checkbox checked={images.indexOf(v.id) > -1} />
+                  <ListItemText primary={v.name} />
+                </MenuItem>
+              ))}
+            </Select>
           </div>
           <div className="mt-4 mb-2">
             <p>メーカー</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
               type="text"
               value={manu}
               onChange={(e) => setManu(e.target.value)}
@@ -183,21 +249,21 @@ const ProductDialog = ({
           </div>
           <div className="mt-4 mb-2">
             <p>銃種</p>
-            <select
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <Select
+              className="w-full rounded-md bg-slate-300/25"
               value={type}
               onChange={(e) => setType(Number(e.target.value))}
             >
-              <option value={0}>狩猟銃</option>
-              <option value={1}>クレー射撃銃</option>
-              <option value={2}>ライフル銃</option>
-              <option value={3}>エアライフル銃</option>
-            </select>
+              <MenuItem value={0}>狩猟銃</MenuItem>
+              <MenuItem value={1}>クレー射撃銃</MenuItem>
+              <MenuItem value={2}>ライフル銃</MenuItem>
+              <MenuItem value={3}>エアライフル銃</MenuItem>
+            </Select>
           </div>
           <div className="mt-4 mb-2">
             <p>モデル</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
               type="text"
               value={model}
               onChange={(e) => setModel(e.target.value)}
@@ -205,17 +271,20 @@ const ProductDialog = ({
           </div>
           <div className="mt-4 mb-2">
             <p>金額</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
               type="number"
               value={price}
-              onChange={(e) => setPrice(e.target.valueAsNumber)}
+              onChange={(e) => setPrice(Number(e.target.value))}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">円</InputAdornment>,
+              }}
             />
           </div>
           <div className="mt-4 mb-2">
             <p>口径</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
               type="text"
               value={caliber}
               onChange={(e) => setCaliber(e.target.value)}
@@ -223,65 +292,80 @@ const ProductDialog = ({
           </div>
           <div className="mt-4 mb-2">
             <p>銃身長</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
               type="number"
               value={bLen}
-              onChange={(e) => setBLen(e.target.valueAsNumber)}
+              onChange={(e) => setBLen(Number(e.target.value))}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">{'" (in)'}</InputAdornment>,
+              }}
             />
           </div>
           <div className="mt-4 mb-2">
             <p>重量</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
               type="number"
               value={weight}
-              onChange={(e) => setWeight(e.target.valueAsNumber)}
+              onChange={(e) => setWeight(Number(e.target.value))}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+              }}
             />
           </div>
           <div className="mt-4 mb-2">
             <p>プル</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md bg-slate-300/25"
               type="number"
               value={pull}
-              onChange={(e) => setPull(e.target.valueAsNumber)}
+              onChange={(e) => setPull(Number(e.target.value))}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">mm</InputAdornment>,
+              }}
             />
           </div>
           <div className="mt-4 mb-2">
             <p>程度</p>
-            <select
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <Select
+              className="w-full rounded-md bg-slate-300/25"
               value={cond}
               onChange={(e) => setCond(Number(e.target.value))}
             >
-              <option value={0}>新銃</option>
-              <option value={1}>中古銃</option>
-            </select>
+              <MenuItem value={0}>新銃</MenuItem>
+              <MenuItem value={1}>中古銃</MenuItem>
+            </Select>
           </div>
           <div className="mt-4 mb-2">
             <p>備考</p>
-            <textarea
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              multiline
+              rows={4}
+              className="w-full rounded-md bg-slate-300/25"
               value={remarks}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setRemarks(e.target.value)}
             />
           </div>
           <div className="mt-4 mb-2">
             <p>説明</p>
-            <textarea
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              multiline
+              rows={4}
+              className="w-full rounded-md bg-slate-300/25"
               value={desc}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setDesc(e.target.value)}
             />
           </div>
           <div className="flex justify-center">
-            <button
-              className="cursor-pointer rounded-md bg-slate-300 py-1 px-4"
+            <Button
+              variant="outlined"
+              className="rounded-md bg-slate-300 border-black/25 text-black py-1 px-4 hover:border-black"
+              disabled={button}
               onClick={() => registerProduct()}
             >
               登録
-            </button>
+            </Button>
             {deleteButton()}
           </div>
         </div>

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import ProductList from "@/features/product/component/Product";
+import { prisma } from "@/lib/prisma";
 
 const ProductPage = () => {
   const checkItem = [false, false, false, false, false, false];
@@ -31,17 +32,39 @@ const ProductPage = () => {
 
   useEffect(() => {
     const fetcher = async () => {
+      const arrayID: { [x in string]: string } = {};
       const dataRes = await fetch(
         `/api/product/list?${new URLSearchParams({ condition: `${checked}` })}`,
         {
           cache: "no-store",
         }
       );
-      const data = await dataRes.json();
+      const data: ProductData[] = await dataRes.json();
+      const imagesRes = await fetch("/api/image/list", {
+        method: "POST",
+        body: JSON.stringify({}),
+      });
+      const images: TImageData[] = await imagesRes.json();
+      images.map((v) => {
+        arrayID[v.id] = v.urn;
+      });
+
+      data.map((v: ProductData) => {
+        v.imageUrl = arrayID[v.image];
+        if (v.images) {
+          const imageArray = [];
+          for (const [key, value] of Object.entries(v.images)) {
+            if (typeof value === "string") {
+              imageArray.push(arrayID[value]);
+            }
+          }
+          v.imagesUrl = Object.assign({}, imageArray);
+        }
+      });
       setData(data);
-    }
-    fetcher()
-  }, [])
+    };
+    fetcher();
+  }, []);
 
   return (
     <main>

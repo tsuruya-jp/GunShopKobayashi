@@ -3,7 +3,9 @@ type ProductData = {
   name: string;
   price: number;
   image: string;
+  imageUrl?: string;
   images?: Prisma.JsonValue;
+  imagesUrl?: any;
   type: number;
   caliber: string;
   manufacturer: string;

@@ -7,7 +7,7 @@ const ProductList = ({ products }: { products: ProductData[] }) => {
         <div className="" key={i}>
           <div className="border border-[#AAA] mb-4">
             <Link href={`product/${v.name}`}>
-              <img src={`${URL}${v.image}`} alt="" />
+              <img src={`${URL}${v.imageUrl}`} alt="" />
             </Link>
           </div>
           <div className="ml-2 mb-16">

@@ -1,5 +1,6 @@
 import { mdiCloseThick } from "@mdi/js";
 import Icon from "@mdi/react";
+import { Button, TextField } from "@mui/material";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
@@ -9,7 +10,7 @@ const NewsDialog = ({
   disabled,
   data,
   close,
-  reload
+  reload,
 }: {
   disabled: boolean;
   data: NewsData;
@@ -19,6 +20,7 @@ const NewsDialog = ({
   const [title, setTitle] = useState(data.title);
   const [content, setContent] = useState(data.content);
   const [isPublic, setPublic] = useState(data.public);
+  const [button, setBtn] = useState(true);
 
   const newsTitle = () => {
     if (data.title.length === 0) {
@@ -30,12 +32,13 @@ const NewsDialog = ({
   const deleteButton = () => {
     if (data.title.length !== 0) {
       return (
-        <button
-          className="cursor-pointer rounded-md bg-slate-300 py-1 px-4 ml-1"
+        <Button
+          variant="outlined"
+          className="rounded-md bg-slate-300 border-black/25 text-black py-1 px-4 ml-1 hover:border-black"
           onClick={() => deleteNews()}
         >
           削除
-        </button>
+        </Button>
       );
     }
     return <></>;
@@ -82,6 +85,15 @@ const NewsDialog = ({
   };
 
   useEffect(() => {
+    if (title) {
+      setBtn(false);
+      return;
+    }
+    setBtn(true);
+  }, [title]);
+
+
+  useEffect(() => {
     setTitle(data.title);
     setContent(data.content);
     setPublic(data.public);
@@ -109,8 +121,9 @@ const NewsDialog = ({
           </div>
           <div className="mt-4 mb-2">
             <p>タイトル</p>
-            <input
-              className="w-full rounded-md bg-slate-300/25 border border-black p-2"
+            <TextField
+              className="w-full rounded-md border-black"
+              variant="outlined"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -121,12 +134,14 @@ const NewsDialog = ({
             <DraftEditor content={data.content} update={setContent} />
           </div>
           <div className="flex justify-center">
-            <button
-              className="cursor-pointer rounded-md bg-slate-300 py-1 px-4"
+            <Button
+              variant="outlined"
+              className="rounded-md bg-slate-300 border-black/25 text-black py-1 px-4 hover:border-black"
+              disabled={button}
               onClick={() => registerNews()}
             >
               登録
-            </button>
+            </Button>
             {deleteButton()}
           </div>
         </div>
