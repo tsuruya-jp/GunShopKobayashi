@@ -58,11 +58,12 @@ const MediaDialog = ({
     if (data.id.length === 0) {
       await fetch("/api/media/create", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name,
           image: image,
-        })
-      })
+        }),
+      });
       close();
       reload();
       return;
@@ -73,8 +74,8 @@ const MediaDialog = ({
         id: data.id,
         name: name,
         image: image,
-      })
-    })
+      }),
+    });
     close();
     reload();
   };
@@ -106,8 +107,7 @@ const MediaDialog = ({
 
   useEffect(() => {
     setName(data.name);
-    // setUrn(URL + data.urn);
-    setImage(data.urn);
+    setImage(URL + data.urn);
   }, [data]);
 
   useEffect(() => {
@@ -141,7 +141,11 @@ const MediaDialog = ({
           <div className="mb-8">
             <Button component="label" role={undefined} variant="contained" tabIndex={-1}>
               ファイルを選択する
-              <VisuallyHiddenInput onChange={(e) => generateImage(e)} type="file" />
+              <VisuallyHiddenInput
+                onChange={(e) => generateImage(e)}
+                type="file"
+                accept="image/*"
+              />
             </Button>
           </div>
           <div className="mb-8">

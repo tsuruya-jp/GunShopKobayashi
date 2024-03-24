@@ -5,7 +5,7 @@ const MediaList = ({ items, open }: { items: MediaData[]; open: (i: number) => v
       <div key={i.toString()} className="mb-4 items-baseline [&_p]:text-xs">
         <button onClick={() => open(i)} className="hover:text-gray-400 mr-4">
           <div>{v.name}</div>
-          {/* <img src={`${URL}${v.urn}`} alt="" /> */}
+          <img src={`${URL}${v.urn}`} alt="" />
         </button>
       </div>
     );
