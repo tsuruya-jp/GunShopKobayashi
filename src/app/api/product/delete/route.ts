@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest) => {
 
     const data = await req.json();
     const id = await data.id;
-    await prisma.image.delete({
+    await prisma.product.delete({
       where: {
         id: id,
       },
